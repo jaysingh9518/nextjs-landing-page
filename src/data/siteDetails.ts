@@ -1,9 +1,9 @@
 export const siteDetails = {
-    siteName: 'Finwise',
-    siteUrl: 'https://finwise-omega.vercel.app/',
+    siteName: 'Make My Travls',
+    siteUrl: 'https://packages.makemytravls.com/',
     metadata: {
-        title: 'Finwise - Next.js and Tailwind CSS Landing Page Template',
-        description: 'Finwise empowers businesses with cutting-edge technology solutions to drive success and efficiency.',
+        title: 'Make My Travls - Your Journey. Our Passion!',
+        description: 'Discover the best holiday packages, exclusive travel deals, and customized tours with Make My Travls – the top travel agency in Agra. Plan your dream vacation today!',
     },
     language: 'en-us',
     locale: 'en-US',
