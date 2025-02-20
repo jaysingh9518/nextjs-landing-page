@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Source_Sans_3, Manrope } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react"
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -48,6 +49,7 @@ export default function RootLayout({
       >
         {siteDetails.googleAnalyticsId && <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />}
         <Header />
+        <Analytics />
         <main>
           {children}
         </main>
