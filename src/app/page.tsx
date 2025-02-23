@@ -8,6 +8,7 @@ import Container from "@/components/Container";
 import Section from "@/components/Section";
 import Stats from "@/components/Stats";
 import CTA from "@/components/CTA";
+import ContactUs from "@/components/ContactUs";
 
 const HomePage: React.FC = () => {
   return (
@@ -16,10 +17,10 @@ const HomePage: React.FC = () => {
       <Logos />
       <Container>
         <Section
-        id="benefits"
-        title="Benefits"
-        description="Here's why you should choose us."
-         >
+          id="benefits"
+          title="Benefits"
+          description="Here's why you should choose us."
+        >
           <Benefits />
         </Section>
 
@@ -44,12 +45,20 @@ const HomePage: React.FC = () => {
           title="Frequently Asked Questions"
           description="Get answers to your questions about our services."
         >
-        <FAQ />
+          <FAQ />
         </Section>
 
         <Stats />
-        
+
         <CTA />
+
+        <Section
+          id="contact"
+          title="Contact Us"
+          description="Fill out the form below for any travel enquiries."
+        >
+          <ContactUs />
+        </Section>
       </Container>
     </>
   );
