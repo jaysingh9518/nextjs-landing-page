@@ -7,7 +7,7 @@ import Benefits from "@/components/Benefits/Benefits";
 import Container from "@/components/Container";
 import Section from "@/components/Section";
 import Stats from "@/components/Stats";
-import CTA from "@/components/CTA";
+// import CTA from "@/components/CTA";
 import ContactUs from "@/components/ContactUs";
 import EnquiryPopup from "@/components/EnquiryPopup";
 
@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
 
         <Stats />
 
-        <CTA />
+        {/* <CTA /> */}
 
         <Section
           id="contact"

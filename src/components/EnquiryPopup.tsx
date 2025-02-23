@@ -1,6 +1,9 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import emailjs from 'emailjs-com';
 import clsx from 'clsx';
+import { HiOutlineX } from 'react-icons/hi';
 
 const EnquiryPopup: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -40,7 +43,7 @@ const EnquiryPopup: React.FC = () => {
             reply_to: formData.email
         };
 
-        emailjs.send('service_w4rr5wc', 'template_7q9gpw4', templateParams, '8ERZGAUYgdZVt9mTD')
+        emailjs.send('service_w4rr5wc', 'template_orv2w0q', templateParams, '8ERZGAUYgdZVt9mTD')
             .then((result) => {
                 console.log('Email successfully sent!', result.text);
                 alert('Enquiry submitted successfully!');
@@ -57,7 +60,7 @@ const EnquiryPopup: React.FC = () => {
             reply_to: 'info@makemytravls.com'
         };
 
-        emailjs.send('service_w4rr5wc', 'YOUR_CONFIRMATION_TEMPLATE_ID', confirmationParams, '8ERZGAUYgdZVt9mTD')
+        emailjs.send('service_w4rr5wc', 'template_7q9gpw4', confirmationParams, '8ERZGAUYgdZVt9mTD')
             .then((result) => {
                 console.log('Confirmation email successfully sent!', result.text);
             }, (error) => {
@@ -65,12 +68,33 @@ const EnquiryPopup: React.FC = () => {
             });
     };
 
+    const handleClose = () => {
+        setIsVisible(false);
+    };
+
+    const handleOutsideClick = (e: React.MouseEvent) => {
+        if ((e.target as HTMLElement).id === 'popup-overlay') {
+            handleClose();
+        }
+    };
+
     if (!isVisible) return null;
 
     return (
-        <div className={clsx("fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50", { "animate-shake": isShaking })}>
-            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <div
+            id="popup-overlay"
+            className={clsx("fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50", { "animate-shake": isShaking })}
+            onClick={handleOutsideClick}
+        >
+            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative">
+                <button
+                    onClick={handleClose}
+                    className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+                >
+                    <HiOutlineX className="h-6 w-6" />
+                </button>
                 <h2 className="text-2xl font-semibold text-center mb-4">Enquiry Form</h2>
+                <p className="text-center text-gray-500 mb-4">Please fill out the form below and we will get back to you shortly.</p>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>

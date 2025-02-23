@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
 
@@ -27,7 +29,7 @@ const ContactUs: React.FC = () => {
             reply_to: formData.email
         };
 
-        emailjs.send('service_w4rr5wc', 'template_7q9gpw4', templateParams, '8ERZGAUYgdZVt9mTD')
+        emailjs.send('service_w4rr5wc', 'template_orv2w0q', templateParams, '8ERZGAUYgdZVt9mTD')
             .then((result) => {
                 console.log('Email successfully sent!', result.text);
                 alert('Enquiry submitted successfully!');
@@ -43,7 +45,7 @@ const ContactUs: React.FC = () => {
             reply_to: 'info@makemytravls.com'
         };
 
-        emailjs.send('service_w4rr5wc', 'YOUR_CONFIRMATION_TEMPLATE_ID', confirmationParams, '8ERZGAUYgdZVt9mTD')
+        emailjs.send('service_w4rr5wc', 'template_7q9gpw4', confirmationParams, '8ERZGAUYgdZVt9mTD')
             .then((result) => {
                 console.log('Confirmation email successfully sent!', result.text);
             }, (error) => {
@@ -54,8 +56,6 @@ const ContactUs: React.FC = () => {
     return (
         <section id="contact" className="py-10">
             <div className="max-w-7xl w-full mx-auto px-6">
-                <h2 className="text-3xl font-semibold text-center mb-6">Contact Us</h2>
-                <p className="text-center mb-10">Fill out the form below for any travel enquiries.</p>
                 <form onSubmit={handleSubmit} className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
