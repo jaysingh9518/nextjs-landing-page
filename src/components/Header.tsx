@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Transition } from '@headlessui/react';
 import { HiOutlineXMark, HiBars3 } from 'react-icons/hi2';
 import Container from './Container';
-import { siteDetails } from '@/data/siteDetails';
+// import { siteDetails } from '@/data/siteDetails';
 import { menuItems } from '@/data/menuItems';
 import { headerLogo } from '@/data/headerLogo';
 
@@ -30,9 +30,9 @@ const Header: React.FC = () => {
                             height={headerLogo.height}
                             className="min-w-fit"
                         />
-                        <span className="manrope text-xl font-semibold text-foreground cursor-pointer">
+                        {/* <span className="manrope text-xl font-semibold text-foreground cursor-pointer">
                             {siteDetails.siteName}
-                        </span>
+                        </span> */}
                     </Link>
 
                     {/* Desktop Menu */}

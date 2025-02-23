@@ -19,9 +19,9 @@ const Footer: React.FC = () => {
                             height={headerLogo.height}
                             className="min-w-fit"
                         />
-                        <h3 className="manrope text-xl font-semibold cursor-pointer">
+                        {/* <h3 className="manrope text-xl font-semibold cursor-pointer">
                             {siteDetails.siteName}
-                        </h3>
+                        </h3> */}
                     </Link>
                     <p className="mt-3.5 text-foreground-accent">
                         {footerDetails.subheading}
