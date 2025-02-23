@@ -8,7 +8,7 @@ interface Props {
     highlight?: boolean;
 }
 
-const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
+const PackageColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
     const { name, price, features } = tier;
 
     return (
@@ -41,4 +41,4 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
     )
 }
 
-export default PricingColumn
+export default PackageColumn;

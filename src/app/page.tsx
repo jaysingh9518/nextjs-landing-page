@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import Testimonials from "@/components/Testimonials";
-import Pricing from "@/components/Pricing/Pricing";
+import Package from "@/components/Package/Packages";
 import FAQ from "@/components/FAQ";
 import Logos from "@/components/Logos";
 import Benefits from "@/components/Benefits/Benefits";
@@ -15,14 +15,20 @@ const HomePage: React.FC = () => {
       <Hero />
       <Logos />
       <Container>
-        <Benefits />
+        <Section
+        id="benefits"
+        title="Benefits"
+        description="Here's why you should choose us."
+         >
+          <Benefits />
+        </Section>
 
         <Section
           id="pricing"
           title="Pricing"
           description="Simple, transparent pricing. No surprises."
         >
-          <Pricing />
+          <Package />
         </Section>
 
         <Section
