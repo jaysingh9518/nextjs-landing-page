@@ -10,16 +10,16 @@ export const footerDetails: {
     subheading: "Your gateway to unforgettable travel experiences.",
     quickLinks: [
         {
-            text: "Destinations",
-            url: "#destinations"
+            text: "Benifits",
+            url: "#benifits"
         },
         {
-            text: "Packages",
-            url: "#packages"
+            text: "Package",
+            url: "#package"
         },
         {
-            text: "Reviews",
-            url: "#reviews"
+            text: "Testimonials",
+            url: "#testimonials"
         },
         {
             text: "Contact Us",
