@@ -9,6 +9,7 @@ import Section from "@/components/Section";
 import Stats from "@/components/Stats";
 import CTA from "@/components/CTA";
 import ContactUs from "@/components/ContactUs";
+import EnquiryPopup from "@/components/EnquiryPopup";
 
 const HomePage: React.FC = () => {
   return (
@@ -60,6 +61,7 @@ const HomePage: React.FC = () => {
           <ContactUs />
         </Section>
       </Container>
+      <EnquiryPopup />
     </>
   );
 };

@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import emailjs from 'emailjs-com';
+import clsx from 'clsx';
 
-const ContactUs: React.FC = () => {
+const EnquiryPopup: React.FC = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
         message: ''
     });
+    const [isVisible, setIsVisible] = useState(false);
+    const [isShaking, setIsShaking] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsVisible(true);
+            setIsShaking(true);
+            setTimeout(() => setIsShaking(false), 1000); // Stop shaking after 1 second
+        }, 10000); // Show popup after 10 seconds
+
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -31,6 +44,7 @@ const ContactUs: React.FC = () => {
             .then((result) => {
                 console.log('Email successfully sent!', result.text);
                 alert('Enquiry submitted successfully!');
+                setIsVisible(false);
             }, (error) => {
                 console.log('Failed to send email.', error.text);
             });
@@ -51,12 +65,13 @@ const ContactUs: React.FC = () => {
             });
     };
 
+    if (!isVisible) return null;
+
     return (
-        <section id="contact" className="py-10">
-            <div className="max-w-7xl w-full mx-auto px-6">
-                <h2 className="text-3xl font-semibold text-center mb-6">Contact Us</h2>
-                <p className="text-center mb-10">Fill out the form below for any travel enquiries.</p>
-                <form onSubmit={handleSubmit} className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <div className={clsx("fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50", { "animate-shake": isShaking })}>
+            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+                <h2 className="text-2xl font-semibold text-center mb-4">Enquiry Form</h2>
+                <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
                         <input
@@ -115,8 +130,8 @@ const ContactUs: React.FC = () => {
                     </div>
                 </form>
             </div>
-        </section>
+        </div>
     );
 };
 
-export default ContactUs;
+export default EnquiryPopup;
