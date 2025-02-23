@@ -1,7 +1,6 @@
-import React from 'react'
-import clsx from 'clsx'
-
-import { ctaDetails } from '@/data/cta'
+import React from 'react';
+import clsx from 'clsx';
+import { ctaDetails } from '@/data/cta';
 
 const AppStoreButton = ({ dark }: { dark?: boolean }) => {
     return (
@@ -26,7 +25,7 @@ const AppStoreButton = ({ dark }: { dark?: boolean }) => {
                 </div>
             </button>
         </a>
-    )
-}
+    );
+};
 
-export default AppStoreButton
+export default AppStoreButton;

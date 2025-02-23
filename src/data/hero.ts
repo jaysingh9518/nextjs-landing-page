@@ -1,5 +1,5 @@
 export const heroDetails = {
-    heading: 'Smart, Secure, Simple Financial Management',
-    subheading: 'From effortless budgeting to real-time investment insights, Finwise puts you in control of your money like never before',
-    centerImageSrc: '/images/hero-mockup.webp',
+    heading: 'Discover Your Next Adventure',
+    subheading: 'From breathtaking destinations to exclusive travel deals, Make My Travls puts the world at your fingertips.',
+    centerImageSrc: '/images/hero-travel.webp',
 }
