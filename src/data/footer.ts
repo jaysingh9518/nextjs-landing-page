@@ -5,6 +5,7 @@ export const footerDetails: {
     quickLinks: IMenuItem[];
     email: string;
     telephone: string;
+    address: string;
     socials: ISocials;
 } = {
     subheading: "Your gateway to unforgettable travel experiences.",
@@ -32,10 +33,12 @@ export const footerDetails: {
     ],
     email: 'info@makemytravls.com',
     telephone: '+91 9997365898',
+    address: 'Khasra No. 513, House No. 31/PN/397, Prem Nagar, Rajpur Chungi, Shamshabad Road, Agra, Uttar Pradesh – 282001',
     socials: {
         twitter: 'https://twitter.com/makemytravls',
         facebook: 'https://facebook.com/makemytravls',
         linkedin: 'https://www.linkedin.com/company/makemytravls',
         instagram: 'https://www.instagram.com/makemyTravls',
+        youtube: 'https://www.youtube.com/@makemytravls',
     }
 }

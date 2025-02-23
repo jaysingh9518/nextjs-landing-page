@@ -40,6 +40,20 @@ const Hero: React.FC = () => {
         }
     }, []);
 
+    const scrollToNext = () => {
+        const scrollContainer = scrollContainerRef.current;
+        if (scrollContainer) {
+            scrollContainer.scrollBy({ left: scrollContainer.clientWidth, behavior: 'smooth' });
+        }
+    };
+
+    const scrollToPrev = () => {
+        const scrollContainer = scrollContainerRef.current;
+        if (scrollContainer) {
+            scrollContainer.scrollBy({ left: -scrollContainer.clientWidth, behavior: 'smooth' });
+        }
+    };
+
     return (
         <section
             id="hero"
@@ -58,7 +72,7 @@ const Hero: React.FC = () => {
                 <p className="mt-4 text-foreground max-w-lg mx-auto">{heroDetails.subheading}</p>
             </div>
 
-            <div className="mt-16 w-full overflow-hidden">
+            <div className="mt-16 mb-4 w-full overflow-hidden relative">
                 <div className="flex w-full" ref={scrollContainerRef}>
                     {destinations.map((destination) => (
                         <div key={destination.name} className="flex-shrink-0 w-full text-center">
@@ -74,6 +88,18 @@ const Hero: React.FC = () => {
                         </div>
                     ))}
                 </div>
+                <button
+                    onClick={scrollToPrev}
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
+                >
+                    Prev
+                </button>
+                <button
+                    onClick={scrollToNext}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
+                >
+                    Next
+                </button>
             </div>
         </section>
     );
