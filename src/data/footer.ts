@@ -10,8 +10,8 @@ export const footerDetails: {
     subheading: "Your gateway to unforgettable travel experiences.",
     quickLinks: [
         {
-            text: "Benifits",
-            url: "#benifits"
+            text: "Benefits",
+            url: "#benefits"
         },
         {
             text: "Package",
