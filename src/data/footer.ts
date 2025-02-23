@@ -22,6 +22,10 @@ export const footerDetails: {
             url: "#testimonials"
         },
         {
+            text: "FAQ",
+            url: "#faq"
+        },
+        {
             text: "Contact Us",
             url: "#contact"
         }
