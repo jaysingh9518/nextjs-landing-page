@@ -4,15 +4,16 @@ import React from 'react';
 
 interface EnquiryButtonProps {
   onClick: () => void;
+  text: string;
 }
 
-const EnquiryButton: React.FC<EnquiryButtonProps> = ({ onClick }) => {
+const EnquiryButton: React.FC<EnquiryButtonProps> = ({ onClick, text }) => {
   return (
     <button
       onClick={onClick}
-      className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+      className="text-black bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors"
     >
-      Open Enquiry Form
+      {text}
     </button>
   );
 };

@@ -9,10 +9,18 @@ import clsx from 'clsx';
 import Container from './Container';
 import { menuItems } from '@/data/menuItems';
 import { headerLogo } from '@/data/headerLogo';
+import EnquiryButton from './EnquiryButton';
+import EnquiryPopup from "@/components/EnquiryPopup";
 
 const Header: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
+  
+    const handleClosePopup = () => {
+        setIsPopupVisible(false);
+    };
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -34,9 +42,10 @@ const Header: React.FC = () => {
     }, []);
 
     return (
+        <>
         <header className={clsx("fixed top-0 left-0 right-0 z-50 mx-auto w-full transition-all duration-300", { "bg-white shadow-md backdrop-blur-md": isScrolled, "bg-[rgba(255,255,255,0.1)] backdrop-blur-md": !isScrolled})}>
             <Container className="!px-0">
-                <nav className={clsx("mx-auto flex justify-between items-center py-2 px-5 md:py-10", { "md:px-2": !isScrolled, "md:py-2": isScrolled })}>
+                <nav className={clsx("mx-auto flex justify-between items-center py-2 px-5 md:py-5", { "md:py-2": isScrolled })}>
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2">
                         <Image
@@ -49,7 +58,7 @@ const Header: React.FC = () => {
                     </Link>
 
                     {/* Desktop Menu */}
-                    <ul className="hidden md:flex space-x-6">
+                    <ul className="hidden md:flex items-center space-x-6">
                         {menuItems.map(item => (
                             <li key={item.text}>
                                 <Link href={item.url} className="text-foreground hover:text-foreground-accent transition-colors">
@@ -58,9 +67,8 @@ const Header: React.FC = () => {
                             </li>
                         ))}
                         <li>
-                            <Link href="#contact" className="text-black bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors">
-                                Enquire Now 
-                            </Link>
+                            {/* Enquiry Button */}
+                            <EnquiryButton onClick={() => setIsPopupVisible(true)} text="Enquire Now" />
                         </li>
                     </ul>
 
@@ -104,14 +112,18 @@ const Header: React.FC = () => {
                             </li>
                         ))}
                         <li>
-                            <Link href="#contact" className="text-black bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit" onClick={toggleMenu}>
-                                Get Started
-                            </Link>
+                            {/* Enquiry Button */}
+                            <EnquiryButton onClick={() => setIsPopupVisible(true)} text="Get Started Now" />
                         </li>
                     </ul>
                 </div>
             </Transition>
         </header>
+
+        {/* Enquiry Form */}
+        <EnquiryPopup isVisible={isPopupVisible} onClose={handleClosePopup} />
+
+        </>
     );
 };
 
