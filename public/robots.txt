@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://packages.makemytravls.com/
+
+# Sitemaps
+Sitemap: https://packages.makemytravls.com/sitemap.xml
