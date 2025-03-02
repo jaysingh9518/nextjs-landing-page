@@ -8,7 +8,7 @@ export const footerDetails: {
     address: string;
     socials: ISocials;
 } = {
-    subheading: "Your gateway to unforgettable travel experiences.",
+    subheading: "From breathtaking destinations to exclusive travel deals, Make My Travls puts the world at your fingertips.",
     quickLinks: [
         {
             text: "Benefits",

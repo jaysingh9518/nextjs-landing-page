@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
@@ -20,6 +21,7 @@
     "i18next": "^24.2.2",
     "next": "^14.2.13",
     "next-i18next": "^15.4.2",
+    "next-sitemap": "^4.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-i18next": "^15.4.1",

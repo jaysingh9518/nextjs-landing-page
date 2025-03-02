@@ -2,7 +2,7 @@ export const siteDetails = {
     siteName: 'Make My Travls',
     siteUrl: 'https://packages.makemytravls.com/',
     metadata: {
-        title: 'Make My Travls - Your Journey. Our Passion!',
+        title: 'Packages | Make My Travls - Your Journey. Our Passion!',
         description: 'Discover the best holiday packages, exclusive travel deals, and customized tours with Make My Travls – the top travel agency in Agra. Plan your dream vacation today!',
     },
     language: 'en-us',
