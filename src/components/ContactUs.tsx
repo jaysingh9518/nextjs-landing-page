@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
+import { FaPaperPlane } from "react-icons/fa";
 
 const ContactUs: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -108,9 +109,9 @@ const ContactUs: React.FC = () => {
                     <div className="text-center">
                         <button
                             type="submit"
-                            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                            className="inline-flex justify-center items-center py-2 px-4 border border-transparent shadow-sm text-md font-bold rounded-md text-white bg-secondary hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                         >
-                            Submit
+                            Submit &nbsp; <FaPaperPlane size={16} />
                         </button>
                     </div>
                 </form>

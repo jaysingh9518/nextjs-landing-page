@@ -1,54 +1,140 @@
 .packagesContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 20px;
-  }
-  
-  .packageCard {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
-    padding: 20px;
-    width: 300px;
-    color: #000;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  }
-  
-  .packageCard:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  .packageTitle {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  .packageDescription {
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-  
-  .packageDetails {
-    font-size: 0.9rem;
-    margin-bottom: 5px;
-  }
-  
-  .packagePrice {
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-  
-  .packageInclusions {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .packageInclusions li {
-    font-size: 0.9rem;
-    margin-bottom: 5px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.packageCard {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  width: 350px;
+  color: #000;
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
+}
+
+.packageCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.packageTitle {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.packageDescription {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.packageDetails {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+.priceLabel {
+  color: #000;
+  font-weight: 700;
+}
+
+.strike {
+  color: #d32f2f;
+  text-decoration: line-through;
+}
+
+.discountedPrice {
+  color: #48a860;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.perPerson {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.packageInclusions {
+  list-style-type: none;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.packageInclusions::before {
+  content: "Inclusions:";
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.packageInclusions li {
+  font-size: 0.9rem;
+  background: #f0f0f0;
+  padding: 5px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  color: #333;
+}
+
+.packageButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.contactContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.contactLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.contactLink:hover {
+  color: #ff6b6b;
+}
+
+.whatsappIcon {
+  color: #25D366;
+}
+
+.emailIcon {
+  color: #EA4335;
+}
+
+.callIcon {
+  color: #304fff;
+  transform: scaleX(-1);
+}
