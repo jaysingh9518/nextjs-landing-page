@@ -7,8 +7,8 @@ import { cardsData } from '@/data/cards';
 import styles from './HeroCards.module.css';
 
 const HeroCards = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const cards = cardsData.cards;
 
   useEffect(() => {
@@ -18,12 +18,12 @@ const HeroCards = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % cards.length);
         setIsAnimating(false);
       }, 500);
-    }, 4000); // Auto change every 3 seconds
+    }, 3000); // Auto change every 3 seconds
 
     return () => clearInterval(interval);
   }, [cards.length]);
 
-  const handleCardClick = (index) => {
+  const handleCardClick = (index: number) => {
     setIsAnimating(true);
     setTimeout(() => {
       setCurrentIndex(index);
