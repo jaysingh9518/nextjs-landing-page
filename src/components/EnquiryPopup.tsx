@@ -1,18 +1,21 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import emailjs from 'emailjs-com';
-import clsx from 'clsx';
-import { HiOutlineX } from 'react-icons/hi';
+import React, { useState, useEffect } from "react";
+import clsx from "clsx";
+import { HiOutlineX } from "react-icons/hi";
 import { FaPaperPlane } from "react-icons/fa";
 
-const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ isVisible, onClose }) => {
+const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({
+    isVisible,
+    onClose,
+}) => {
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        message: ''
+        name: "",
+        email: "",
+        mobile: "",
+        message: "",
     });
+    const [status, setStatus] = useState("");
     const [isShaking, setIsShaking] = useState(false);
 
     useEffect(() => {
@@ -22,61 +25,94 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
         }
     }, [isVisible]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                onClose();
+            }
+        };
+
+        if (isVisible) {
+            document.addEventListener("keydown", handleKeyDown);
+        }
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [isVisible, onClose]);
+
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: value
+            [name]: value,
         });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const templateParams = {
-            to_name: 'Make My Travls',
-            from_name: formData.name,
-            message: formData.message,
-            reply_to: formData.email
-        };
+        if (!isValidMobile(formData.mobile)) {
+            setStatus("❌ Please enter a valid 10-digit mobile number.");
+            return;
+        }
 
-        emailjs.send('service_w4rr5wc', 'template_orv2w0q', templateParams, '8ERZGAUYgdZVt9mTD')
-            .then((result) => {
-                console.log('Email successfully sent!', result.text);
-                alert('Enquiry submitted successfully!');
-                onClose();
-            }, (error) => {
-                console.log('Failed to send email.', error.text);
+        if (!isValidEmail(formData.email)) {
+            setStatus("❌ Please enter a valid email address.");
+            return;
+        }
+
+        const googleFormURL =
+            "https://docs.google.com/forms/u/0/d/e/1FAIpQLScAcj6UrrB0vuHytmE3s7QgP5Nn4q5C0jY6S5tgvlkEASMJYg/formResponse";
+
+        const formDataToSubmit = new URLSearchParams();
+        formDataToSubmit.append("entry.783375438", formData.name);
+        formDataToSubmit.append("entry.1989905515", formData.email);
+        formDataToSubmit.append("entry.1387448141", formData.mobile);
+        formDataToSubmit.append("entry.74788637", formData.message);
+
+        try {
+            await fetch(googleFormURL, {
+                method: "POST",
+                body: formDataToSubmit.toString(),
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                mode: "no-cors",
             });
 
-        // Send confirmation email to the submitter
-        const confirmationParams = {
-            to_name: formData.name,
-            from_name: 'Make My Travls',
-            message: 'Thank you for your enquiry. We will get back to you shortly.',
-            reply_to: 'info@makemytravls.com'
-        };
+            setStatus("✅ Message sent successfully!");
+            setFormData({ name: "", email: "", mobile: "", message: "" });
 
-        emailjs.send('service_w4rr5wc', 'template_7q9gpw4', confirmationParams, '8ERZGAUYgdZVt9mTD')
-            .then((result) => {
-                console.log('Confirmation email successfully sent!', result.text);
-            }, (error) => {
-                console.log('Failed to send confirmation email.', error.text);
-            });
+            setTimeout(() => onClose(), 6000);
+
+            setTimeout(() => setStatus(""), 5000);
+        } catch (error) {
+            console.error("Fetch error:", error);
+            setStatus("❌ An error occurred. Please try again.");
+        }
     };
 
     const handleOutsideClick = (e: React.MouseEvent) => {
-        if ((e.target as HTMLElement).id === 'popup-overlay') {
+        if ((e.target as HTMLElement).id === "popup-overlay") {
             onClose();
         }
     };
+
+    const isValidMobile = (mobile: string) => /^[6-9]\d{9}$/.test(mobile);
+
+    const isValidEmail = (email: string) =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     if (!isVisible) return null;
 
     return (
         <div
             id="popup-overlay"
-            className={clsx("fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50", { "animate-shake": isShaking })}
+            className={clsx(
+                "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50",
+                { "animate-shake": isShaking }
+            )}
             onClick={handleOutsideClick}
         >
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative">
@@ -86,11 +122,33 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                 >
                     <HiOutlineX className="h-6 w-6" />
                 </button>
-                <h2 className="text-2xl font-semibold text-center mb-4">Enquiry Form</h2>
-                <p className="text-center text-gray-500 mb-4">Please fill out the form below and we will get back to you shortly.</p>
+                <h2 className="text-2xl font-semibold text-center mb-4">
+                    Enquiry Form
+                </h2>
+                <p className="text-center text-gray-500 mb-4">
+                    Please fill out the form below and we will get back to you
+                    shortly.
+                </p>
+                {status && (
+                    <p
+                        className={`${
+                            status.startsWith("❌")
+                                ? "text-red-500"
+                                : "text-green-500"
+                        } flex justify-center items-center text-center`}
+                    >
+                        {status}
+                    </p>
+                )}
+
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+                        <label
+                            htmlFor="name"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Name
+                        </label>
                         <input
                             type="text"
                             id="name"
@@ -101,8 +159,18 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                             required
                         />
                     </div>
+                    {formData.email && !isValidEmail(formData.email) && (
+                        <p className="text-red-500">
+                            Enter a valid email address
+                        </p>
+                    )}
                     <div className="mb-4">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                        <label
+                            htmlFor="email"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Email
+                        </label>
                         <input
                             type="email"
                             id="email"
@@ -113,20 +181,35 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                             required
                         />
                     </div>
+                    {formData.mobile && !isValidMobile(formData.mobile) && (
+                        <p className="text-red-500">
+                            Enter a valid 10-digit mobile number
+                        </p>
+                    )}
                     <div className="mb-4">
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
+                        <label
+                            htmlFor="mobile"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Mobile
+                        </label>
                         <input
                             type="tel"
-                            id="phone"
-                            name="phone"
-                            value={formData.phone}
+                            id="mobile"
+                            name="mobile"
+                            value={formData.mobile}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                             required
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
+                        <label
+                            htmlFor="message"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Message
+                        </label>
                         <textarea
                             id="message"
                             name="message"

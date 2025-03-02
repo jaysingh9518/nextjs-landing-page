@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState } from 'react';
-import emailjs from 'emailjs-com';
 import { FaPaperPlane } from "react-icons/fa";
 
 const ContactUs: React.FC = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        phone: '',
+        mobile: '',
         message: ''
     });
+    const [status, setStatus] = useState('');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -20,43 +20,64 @@ const ContactUs: React.FC = () => {
         });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const templateParams = {
-            to_name: 'Make My Travls',
-            from_name: formData.name,
-            message: formData.message,
-            reply_to: formData.email
-        };
+        if (!isValidMobile(formData.mobile)) {
+            setStatus('❌ Please enter a valid 10-digit mobile number.');
+            return;
+        }
 
-        emailjs.send('service_w4rr5wc', 'template_orv2w0q', templateParams, '8ERZGAUYgdZVt9mTD')
-            .then((result) => {
-                console.log('Email successfully sent!', result.text);
-                alert('Enquiry submitted successfully!');
-            }, (error) => {
-                console.log('Failed to send email.', error.text);
+        if (!isValidEmail(formData.email)) {
+            setStatus('❌ Please enter a valid email address.');
+            return;
+        }
+
+        const googleFormURL =
+            'https://docs.google.com/forms/u/0/d/e/1FAIpQLScAcj6UrrB0vuHytmE3s7QgP5Nn4q5C0jY6S5tgvlkEASMJYg/formResponse';
+
+        const formDataToSubmit = new URLSearchParams();
+        formDataToSubmit.append('entry.783375438', formData.name);
+        formDataToSubmit.append('entry.1989905515', formData.email);
+        formDataToSubmit.append('entry.1387448141', formData.mobile);
+        formDataToSubmit.append('entry.74788637', formData.message);
+
+        try {
+            await fetch(googleFormURL, {
+                method: 'POST',
+                body: formDataToSubmit.toString(),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                mode: 'no-cors',
             });
 
-        // Send confirmation email to the submitter
-        const confirmationParams = {
-            to_name: formData.name,
-            from_name: 'Make My Travls',
-            message: 'Thank you for your enquiry. We will get back to you shortly.',
-            reply_to: 'info@makemytravls.com'
-        };
+            setStatus('✅ Message sent successfully!');
+            setFormData({ name: '', email: '', mobile: '', message: '' });
 
-        emailjs.send('service_w4rr5wc', 'template_7q9gpw4', confirmationParams, '8ERZGAUYgdZVt9mTD')
-            .then((result) => {
-                console.log('Confirmation email successfully sent!', result.text);
-            }, (error) => {
-                console.log('Failed to send confirmation email.', error.text);
-            });
+            setTimeout(() => setStatus(''), 5000);
+
+        } catch (error) {
+            console.error('Fetch error:', error);
+            setStatus('❌ An error occurred. Please try again.');
+        }
     };
+
+    const isValidMobile = (mobile: string) => /^[6-9]\d{9}$/.test(mobile);
+
+    const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     return (
         <section id="contact" className="py-10">
             <div className="max-w-7xl w-full mx-auto px-6">
+                {status && (
+                    <p
+                        className={`${
+                            status.startsWith('❌') ? 'text-red-500' : 'text-green-500'
+                        } flex justify-center items-center text-center`}
+                    >
+                        {status}
+                    </p>
+                )}
+
                 <form onSubmit={handleSubmit} className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
@@ -70,6 +91,9 @@ const ContactUs: React.FC = () => {
                             required
                         />
                     </div>
+                    {formData.email && !isValidEmail(formData.email) && (
+                        <p className="text-red-500">Enter a valid email address</p>
+                    )}
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
                         <input
@@ -82,13 +106,16 @@ const ContactUs: React.FC = () => {
                             required
                         />
                     </div>
+                    {formData.mobile && !isValidMobile(formData.mobile) && (
+                        <p className="text-red-500">Enter a valid 10-digit mobile number</p>
+                    )}
                     <div className="mb-4">
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
+                        <label htmlFor="mobile" className="block text-sm font-medium text-gray-700">Mobile</label>
                         <input
                             type="tel"
-                            id="phone"
-                            name="phone"
-                            value={formData.phone}
+                            id="mobile"
+                            name="mobile"
+                            value={formData.mobile}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                             required
