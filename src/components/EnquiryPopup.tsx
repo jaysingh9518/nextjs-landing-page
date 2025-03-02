@@ -5,25 +5,21 @@ import emailjs from 'emailjs-com';
 import clsx from 'clsx';
 import { HiOutlineX } from 'react-icons/hi';
 
-const EnquiryPopup: React.FC = () => {
+const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ isVisible, onClose }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
         message: ''
     });
-    const [isVisible, setIsVisible] = useState(false);
     const [isShaking, setIsShaking] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsVisible(true);
+        if (isVisible) {
             setIsShaking(true);
             setTimeout(() => setIsShaking(false), 1000); // Stop shaking after 1 second
-        }, 10000); // Show popup after 10 seconds
-
-        return () => clearTimeout(timer);
-    }, []);
+        }
+    }, [isVisible]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -47,7 +43,7 @@ const EnquiryPopup: React.FC = () => {
             .then((result) => {
                 console.log('Email successfully sent!', result.text);
                 alert('Enquiry submitted successfully!');
-                setIsVisible(false);
+                onClose();
             }, (error) => {
                 console.log('Failed to send email.', error.text);
             });
@@ -68,13 +64,9 @@ const EnquiryPopup: React.FC = () => {
             });
     };
 
-    const handleClose = () => {
-        setIsVisible(false);
-    };
-
     const handleOutsideClick = (e: React.MouseEvent) => {
         if ((e.target as HTMLElement).id === 'popup-overlay') {
-            handleClose();
+            onClose();
         }
     };
 
@@ -88,7 +80,7 @@ const EnquiryPopup: React.FC = () => {
         >
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative">
                 <button
-                    onClick={handleClose}
+                    onClick={onClose}
                     className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
                 >
                     <HiOutlineX className="h-6 w-6" />

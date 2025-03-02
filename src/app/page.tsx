@@ -1,21 +1,34 @@
-import Hero from "@/components/Hero";
+"use client"
+
+import { useState, useEffect } from "react";
+import HeroCards from "@/components/HeroCards";
 import Testimonials from "@/components/Testimonials";
-import Package from "@/components/Package/Packages";
+import Packages from "@/components/Packages";
 import FAQ from "@/components/FAQ";
-import Logos from "@/components/Logos";
 import Benefits from "@/components/Benefits/Benefits";
 import Container from "@/components/Container";
 import Section from "@/components/Section";
 import Stats from "@/components/Stats";
-// import CTA from "@/components/CTA";
 import ContactUs from "@/components/ContactUs";
 import EnquiryPopup from "@/components/EnquiryPopup";
 
 const HomePage: React.FC = () => {
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  
+  const handleClosePopup = () => {
+    setIsPopupVisible(false);
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setIsPopupVisible(true);
+    }, 10000); // Show popup after 10 seconds
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
-      <Hero />
-      <Logos />
+      <HeroCards />
       <Container>
         <Section
           id="benefits"
@@ -26,11 +39,11 @@ const HomePage: React.FC = () => {
         </Section>
 
         <Section
-          id="package"
+          id="packages"
           title="Packages"
           description="Simple, transparent pricing. No surprises."
         >
-          <Package />
+          <Packages />
         </Section>
 
         <Section
@@ -51,8 +64,6 @@ const HomePage: React.FC = () => {
 
         <Stats />
 
-        {/* <CTA /> */}
-
         <Section
           id="contact"
           title="Contact Us"
@@ -61,7 +72,7 @@ const HomePage: React.FC = () => {
           <ContactUs />
         </Section>
       </Container>
-      <EnquiryPopup />
+      <EnquiryPopup isVisible={isPopupVisible} onClose={handleClosePopup} />
     </>
   );
 };

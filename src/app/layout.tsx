@@ -7,6 +7,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { siteDetails } from '@/data/siteDetails';
 
+// import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+
 import "./globals.css";
 
 const manrope = Manrope({ subsets: ['latin'] });

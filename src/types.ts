@@ -16,10 +16,15 @@ export interface IBenefitBullet {
     icon: JSX.Element;
 }
 
-export interface IPricing {
-    name: string;
-    price: number | string;
-    features: string[];
+export interface IPackage {
+    title: string;
+    description: string;
+    nights: number;
+    days: number;
+    minPax: number;
+    normalPrice: number | string;
+    discountPrice: number | string;
+    inclusions: string[];
 }
 
 export interface IFAQ {
