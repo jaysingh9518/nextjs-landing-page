@@ -1,22 +1,21 @@
-import { BsBarChartFill, BsFillStarFill } from "react-icons/bs";
-import { PiGlobeFill } from "react-icons/pi";
+import { FaGlobeAmericas, FaStar, FaSuitcaseRolling } from "react-icons/fa";
 
 import { IStats } from "@/types";
 
 export const stats: IStats[] = [
     {
-        title: "20M+",
-        icon: <BsBarChartFill size={34} className="text-blue-500" />,
-        description: "Transactions processed securely every day, providing real-time insights."
+        title: "100+",
+        icon: <FaGlobeAmericas size={34} style={{ color: "#3b82f6" }} />, // Tailwind class text-blue-500
+        description: "Destinations worldwide, offering diverse travel experiences."
     },
     {
-        title: "5.0",
-        icon: <BsFillStarFill size={34} className="text-yellow-500" />,
-        description: "Star rating, consistently maintained across app stores."
+        title: "4.8",
+        icon: <FaStar size={34} style={{ color: "#facc15" }} />, // Tailwind class text-yellow-500
+        description: "Average customer rating, reflecting our commitment to quality service."
     },
     {
-        title: "200+ ",
-        icon: <PiGlobeFill size={34} className="text-green-600" />,
-        description: "Financial Institutions, seamlessly integrated, so you can manage all accounts."
+        title: "50+",
+        icon: <FaSuitcaseRolling size={34} style={{ color: "#16a34a" }} />, // Tailwind class text-green-600
+        description: "Travel packages, tailored to meet your unique preferences and budget."
     }
 ];

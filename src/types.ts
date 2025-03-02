@@ -56,3 +56,9 @@ export interface ISocials {
     x?: string;
     [key: string]: string | undefined;
 }
+
+export interface ILanguage {
+    code: string;
+    label: string;
+    flag: string;
+}

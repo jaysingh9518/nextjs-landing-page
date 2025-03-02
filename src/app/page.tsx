@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import { appWithTranslation } from 'next-i18next';
+import '../i18n';
 import HeroCards from "@/components/HeroCards";
 import Testimonials from "@/components/Testimonials";
 import Packages from "@/components/Packages";
@@ -77,4 +79,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default appWithTranslation(HomePage);

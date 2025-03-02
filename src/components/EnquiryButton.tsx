@@ -11,7 +11,7 @@ const EnquiryButton: React.FC<EnquiryButtonProps> = ({ onClick, text }) => {
   return (
     <button
       onClick={onClick}
-      className="text-black bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors"
+      className="bg-blue-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg active:shadow-none active:translate-y-1 transition-all"
     >
       {text}
     </button>
