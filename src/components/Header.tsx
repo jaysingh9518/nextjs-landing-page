@@ -253,6 +253,7 @@ const Header: React.FC = () => {
                          <li>
                             <a
                                 href="https://wa.me/919997365898"
+                                onClick={toggleMenu}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-foreground hover:text-foreground-accent transition-colors flex items-center gap-2"
@@ -285,6 +286,7 @@ const Header: React.FC = () => {
                         <li>
                             <a
                                 href="mailto:info@makemytravls.com"
+                                onClick={toggleMenu}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-foreground hover:text-foreground-accent transition-colors flex items-center gap-2"
@@ -317,6 +319,7 @@ const Header: React.FC = () => {
                         <li>
                             <a
                                 href="tel:+919997365898"
+                                onClick={toggleMenu}
                                 className="text-foreground hover:text-foreground-accent transition-colors flex items-center gap-2"
                             >
                                 <div
