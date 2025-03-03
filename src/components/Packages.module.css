@@ -1,9 +1,11 @@
 .packagesContainer {
   display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
+  align-items: center;
   justify-content: center;
   padding: 20px;
+  overflow: hidden;
+  position: relative;
+  gap: 20px;
 }
 
 .packageCard {
@@ -113,6 +115,9 @@
 }
 
 .contactLink {
+  padding: 5px 10px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   gap: 5px;
@@ -123,7 +128,8 @@
 }
 
 .contactLink:hover {
-  color: #ff6b6b;
+  transform: scale(1.05);
+  transition: transform 0.1s ease-in-out;
 }
 
 .whatsappIcon {
@@ -137,4 +143,42 @@
 .callIcon {
   color: #304fff;
   transform: scaleX(-1);
+}
+
+.arrowButton {
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  transition: color 0.3s ease-in-out;
+}
+
+.arrowButton:hover {
+  color: #ff6b6b;
+}
+
+.arrowButton:first-of-type {
+  left: 10px;
+}
+
+.arrowButton:last-of-type {
+  right: 10px;
+}
+
+@media (min-width: 1024px) {
+  .packagesContainer {
+    flex-wrap: wrap;
+  }
+
+  .packageCard {
+    display: block !important;
+  }
+
+  .arrowButton {
+    display: none;
+  }
 }
