@@ -1,10 +1,10 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjaysingh9518%2Fnextjs-landing-page)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fnexi-launch%2Ffinwise-landing-page)
 
-# Make My Travls Packages Landing Page - Next.js + Tailwind Landing Page Template
+# Finwise - Next.js + Tailwind Landing Page Template
 
-This is a lightweight, easily configurable, and customizable **Next.js** and **Tailwind CSS** landing page template. It’s built to be adaptable, performant, and perfect for any product launch, portfolio, or promotional site.
+Finwise is a lightweight, easily configurable, and customizable **Next.js** and **Tailwind CSS** landing page template. It’s built to be adaptable, performant, and perfect for any product launch, portfolio, or promotional site.
 
-Try out the demo here: [https://nextjs-landing-page-rust.vercel.app](https://nextjs-landing-page-rust.vercel.app).
+Try out the demo here: [https://finwise-omega.vercel.app](https://finwise-omega.vercel.app).
 
 Please check out the documentation below to get started.
 
@@ -26,14 +26,14 @@ Please check out the documentation below to get started.
 
 ## Sections
 
-- Hero with Cards options with animations and background images transitions
-- Features or Benefits section with animated content
-- Packages Section which can be changed to pricing plans
+- Hero
+- Partners or Clients Logos
+- Features
+- Pricing
 - Testimonials
 - FAQ
 - Statistics
-- Contact Form with validation
-- Enquiry Form with Modal popup with validation
+- CTA
 - Footer
 
 ---
@@ -59,7 +59,7 @@ Before starting, make sure you have the following installed:
 ## Customization
 
 1. **Edit colors**: Update `globals.css` for primary, secondary, background, and accent colors.
-2. **Update site details**: Customize [`siteDetails.ts`](src/data/siteDetails.ts) in `/src/data` to reflect your brand and site info.
+2. **Update site details**: Customize `siteDetails.ts` in `/src/data` to reflect your brand and site info.
 3. **Modify content**: Files in `/src/data` handle data for navigation, features, pricing, testimonials, and more.
 4. **Replace favicon**: Add your icon to `/src/app/favicon.ico`.
 5. **Add images**: Update `public/images` for Open Graph metadata (e.g., `og-image.jpg`, `twitter-image.jpg`).
@@ -68,13 +68,13 @@ Before starting, make sure you have the following installed:
 
 ## Deploying on Vercel
 
-The fastest way to deploy this project is on [Vercel](https://vercel.com/). Simply click the "Deploy with Vercel" button at the top of this README, or check the [Next.js deployment docs](https://vercel.com/docs/deployments/deployment-methods) for other deployment options.
+The fastest way to deploy Finwise is on [Vercel](https://vercel.com/). Simply click the "Deploy with Vercel" button at the top of this README, or check the [Next.js deployment docs](https://vercel.com/docs/deployments/deployment-methods) for other deployment options.
 
 ---
 
 ## Contributing
 
-This project is open-source, and we welcome contributions from the community! If you have ideas for new components, designs, layouts, or optimizations, please join us in making it even better.
+Finwise is an open-source project, and we welcome contributions from the community! If you have ideas for new components, designs, layouts, or optimizations, please join us in making Finwise even better.
 
 ### How to Contribute
 
@@ -96,10 +96,10 @@ This project is open-source, and we welcome contributions from the community! If
 
 Join our community discussions on GitHub to share ideas, ask questions, or suggest improvements. Let’s build something amazing together!
 
-For support, please contact us via [GitHub Issues](https://github.com/jaysingh9518/nextjs-landing-page/issues).
 
----
+--- 
 
 ## License
 
 This project is open-source and available under the MIT License. Feel free to use, modify, and distribute it for personal or commercial projects.
+# nextjs-landing-page

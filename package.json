@@ -1,5 +1,8 @@
 {
   "name": "packages-landing-page",
+  "description": "Make My Travls Package Landing Page with Next.js",
+  "author": "MakemyTravls",
+  "license": "MIT",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -15,6 +18,7 @@
     "@mui/material-nextjs": "^6.4.3",
     "@next/third-parties": "^14.2.13",
     "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "clsx": "^2.1.1",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^11.11.9",
