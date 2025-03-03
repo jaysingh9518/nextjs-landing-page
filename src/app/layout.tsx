@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react"
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import GoToTopButton from "@/components/GoToTopButton";
 import { siteDetails } from '@/data/siteDetails';
 
 // import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
@@ -56,6 +57,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <GoToTopButton />
       </body>
     </html>
   );
