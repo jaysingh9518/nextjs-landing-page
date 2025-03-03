@@ -203,7 +203,7 @@ const Header: React.FC = () => {
                         <button
                             onClick={toggleMenu}
                             type="button"
-                            className="bg-primary text-black focus:outline-none rounded-full w-10 h-10 flex items-center justify-center"
+                            className="bg-secondary text-white focus:outline-none rounded-full w-10 h-10 flex items-center justify-center"
                             aria-controls="mobile-menu"
                             aria-expanded={isOpen}
                         >
@@ -232,7 +232,7 @@ const Header: React.FC = () => {
                     <ul className="flex flex-col space-y-4 pt-1 pb-6 px-6">
                         {menuItems.map(item => (
                             <li key={item.text}>
-                                <Link href={item.url} className="text-foreground hover:text-primary block" onClick={toggleMenu}>
+                                <Link href={item.url} className="text-foreground hover:text-secondary block" onClick={toggleMenu}>
                                     {t(item.text)}
                                 </Link>
                             </li>
