@@ -115,7 +115,7 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({
             )}
             onClick={handleOutsideClick}
         >
-            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative">
+            <div className="bg-white p-6 md:p-12 rounded-lg shadow-lg max-w-md w-full mx-4 md:mx-0 relative">
                 <button
                     onClick={onClose}
                     className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
@@ -142,44 +142,46 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({
                 )}
 
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="name"
-                            className="block text-sm font-medium text-gray-700"
-                        >
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                            required
-                        />
-                    </div>
-                    {formData.email && !isValidEmail(formData.email) && (
-                        <p className="text-red-500">
-                            Enter a valid email address
-                        </p>
-                    )}
-                    <div className="mb-4">
-                        <label
-                            htmlFor="email"
-                            className="block text-sm font-medium text-gray-700"
-                        >
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                            required
-                        />
+                    <div className="mb-4 flex flex-col md:flex-row gap-2">
+                        <div className="flex-1">
+                            <label
+                                htmlFor="name"
+                                className="block text-sm font-medium text-gray-700"
+                            >
+                                Name
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                                required
+                            />
+                        </div>
+                        <div className="flex-1">
+                            {formData.email && !isValidEmail(formData.email) && (
+                                <p className="text-red-500">
+                                    Enter a valid email address
+                                </p>
+                            )}
+                            <label
+                                htmlFor="email"
+                                className="block text-sm font-medium text-gray-700"
+                            >
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                                required
+                            />
+                        </div>
                     </div>
                     {formData.mobile && !isValidMobile(formData.mobile) && (
                         <p className="text-red-500">
