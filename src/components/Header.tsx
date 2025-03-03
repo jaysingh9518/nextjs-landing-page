@@ -239,7 +239,13 @@ const Header: React.FC = () => {
                         ))}
                         <li>
                             {/* Enquiry Button */}
-                            <EnquiryButton onClick={() => setIsPopupVisible(true)} text={t('enquire_now')} />
+                            <EnquiryButton 
+                            onClick={() => {
+                                setIsPopupVisible(true);
+                                toggleMenu();
+                            }} 
+                            text={t('enquire_now')} 
+                            />
                         </li>
                     </ul>
                     <ul className="flex items-center pb-6 px-6 gap-4">
