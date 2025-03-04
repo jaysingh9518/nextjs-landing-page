@@ -2,8 +2,8 @@ import { IPackage } from "@/types";
 
 export const packages: IPackage[] = [
     {
-        title: 'Golden Triangle (Delhi, Agra, Jaipur)',
-        description: 'Experience India’s rich heritage and iconic landmarks, including the Taj Mahal, Jaipur’s forts, and Delhi’s historic sites.',
+        title: 'Golden Triangle - Delhi, Agra, Jaipur',
+        description: 'Explore India’s heritage, from the Taj Mahal to Jaipur’s forts and Delhi’s historical wonders in a cultural journey.',
         nights: 5,
         days: 6,
         minPax: 1,
@@ -17,8 +17,8 @@ export const packages: IPackage[] = [
         ],
     },
     {
-        title: 'Kerala Backwaters & Munnar',
-        description: 'Enjoy the serene backwaters of Alleppey and lush tea gardens of Munnar in this rejuvenating South India getaway.',
+        title: 'Kerala Backwaters & Munnar Escape',
+        description: 'Sail through Alleppey’s serene backwaters, wander Munnar’s lush tea gardens, and unwind in South India’s beauty.',
         nights: 6,
         days: 7,
         minPax: 2,
@@ -32,8 +32,8 @@ export const packages: IPackage[] = [
         ],
     },
     {
-        title: 'Goa Beach Holiday',
-        description: 'Relax on the golden beaches of Goa, enjoy thrilling water sports, and explore Portuguese heritage in this perfect coastal retreat.',
+        title: 'Goa Beach Holiday & Water Adventures',
+        description: 'Relax on Goa’s golden beaches, dive into thrilling water sports, and experience the state’s unique Portuguese culture.',
         nights: 4,
         days: 5,
         minPax: 1,
@@ -47,8 +47,8 @@ export const packages: IPackage[] = [
         ],
     },
     {
-        title: 'Leh-Ladakh Adventure',
-        description: 'Discover the breathtaking landscapes of Ladakh, visit ancient monasteries, and experience high-altitude adventure.',
+        title: 'Leh-Ladakh High-Altitude Adventure',
+        description: 'Journey through Ladakh’s majestic mountains, ancient monasteries, and breathtaking landscapes in a thrilling expedition.',
         nights: 7,
         days: 8,
         minPax: 2,
@@ -62,8 +62,8 @@ export const packages: IPackage[] = [
         ],
     },
     {
-        title: 'Andaman Islands Escape',
-        description: 'Explore the pristine beaches of Havelock, Neil Island, and Port Blair, with crystal-clear waters and thrilling adventures.',
+        title: 'Andaman Islands - Beach & Marine Bliss',
+        description: 'Enjoy the crystal-clear waters, explore vibrant coral reefs, and experience thrilling island hopping in Andaman’s paradise.',
         nights: 6,
         days: 7,
         minPax: 2,
@@ -77,8 +77,8 @@ export const packages: IPackage[] = [
         ],
     },
     {
-        title: 'Rajasthan Royal Tour',
-        description: 'Experience the grandeur of Rajasthan, from Jaipur’s palaces to Jaisalmer’s desert dunes and Udaipur’s lakes.',
+        title: 'Rajasthan’s Royal Heritage Tour',
+        description: 'Discover Rajasthan’s regal past, from Jaipur’s palaces to Jaisalmer’s desert and Udaipur’s enchanting lakes and forts.',
         nights: 8,
         days: 9,
         minPax: 2,
@@ -93,7 +93,7 @@ export const packages: IPackage[] = [
     },
     {
         title: 'Himalayan Retreat - Manali & Shimla',
-        description: 'Enjoy the scenic beauty of Himachal Pradesh with snow-capped mountains, apple orchards, and adventure activities.',
+        description: 'Escape to Himachal’s snow-capped peaks, apple orchards, and adventure activities in the beautiful hill stations of India.',
         nights: 6,
         days: 7,
         minPax: 2,
@@ -107,8 +107,8 @@ export const packages: IPackage[] = [
         ],
     },
     {
-        title: 'Varanasi & Spiritual Ganges Tour',
-        description: 'Witness the spiritual heart of India with Ganga Aarti, ancient temples, and a boat ride along the sacred river.',
+        title: 'Varanasi & The Sacred Ganges Tour',
+        description: 'Experience India’s spiritual essence with ancient temples, holy rituals, and a mesmerizing boat ride on the sacred Ganges.',
         nights: 4,
         days: 5,
         minPax: 1,
@@ -122,8 +122,8 @@ export const packages: IPackage[] = [
         ],
     },
     {
-        title: 'Meghalaya & Northeast Wonders',
-        description: 'Explore the lush green landscapes, living root bridges, and waterfalls of Meghalaya in this offbeat adventure.',
+        title: 'Meghalaya & Northeast Wonders Tour',
+        description: 'Explore Meghalaya’s living root bridges, waterfalls, and stunning landscapes in a breathtaking journey through the Northeast.',
         nights: 7,
         days: 8,
         minPax: 2,
@@ -137,8 +137,8 @@ export const packages: IPackage[] = [
         ],
     },
     {
-        title: 'Mysore & Coorg Coffee Trails',
-        description: 'Immerse yourself in the royal history of Mysore and the coffee plantations of Coorg in Karnataka.',
+        title: 'Mysore & Coorg Coffee Trail Experience',
+        description: 'Discover Mysore’s palatial grandeur and Coorg’s coffee plantations, nature trails, and waterfalls in a scenic retreat.',
         nights: 5,
         days: 6,
         minPax: 2,
