@@ -31,13 +31,6 @@ const HomePage: React.FC = () => {
     <>
       <HeroCards />
       <Container>
-        <Section
-          id="benefits"
-          title="Benefits"
-          description="Here's why you should choose us."
-        >
-          <Benefits />
-        </Section>
 
         <Section
           id="packages"
@@ -45,6 +38,14 @@ const HomePage: React.FC = () => {
           description="Simple, transparent pricing. No surprises."
         >
           <Packages />
+        </Section>
+
+        <Section
+          id="benefits"
+          title="Benefits"
+          description="Here's why you should choose us."
+        >
+          <Benefits />
         </Section>
 
         <Section

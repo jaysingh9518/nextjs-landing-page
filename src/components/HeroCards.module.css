@@ -96,6 +96,10 @@
 }
 
 @media (max-width: 480px) {
+  .heroContainer {
+    height: 95vh;
+  }
+
   .title {
     font-size: 1.8rem;
   }

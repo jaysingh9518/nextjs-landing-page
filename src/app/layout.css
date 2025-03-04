@@ -1,0 +1,11 @@
+@media (min-width: 1024px) {
+    section {
+      padding-top: 7rem !important;
+    }
+  }
+  
+  @media (max-width: 1023px) {
+    section {
+      padding-top: 6rem !important;
+    }
+  }
