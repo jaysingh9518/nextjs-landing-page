@@ -11,6 +11,9 @@ const Packages = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slidesToShow, setSlidesToShow] = useState(3);
+  const [showFullTitle, setShowFullTitle] = useState(false);
+  const [showFullDesc, setShowFullDesc] = useState(false);
+  const [showAllInclusions, setShowAllInclusions] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -66,15 +69,38 @@ const Packages = () => {
             .slice(currentIndex, currentIndex + slidesToShow)
             .map((pkg) => (
               <motion.div
-                key={pkg.title}
+                key={pkg.id}
                 className="bg-white bg-opacity-15 backdrop-blur-md border border-white border-opacity-30 rounded-lg p-5 w-full text-center custom-box-shadow transition-transform transform hover:scale-105"
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
               >
-                <h2 className="text-xl font-bold mb-3">{pkg.title}</h2>
-                <p className="text-base mb-3">{pkg.description}</p>
+                {/* Title */}
+                <h2 className="text-xl font-bold mb-3">
+                  {showFullTitle ? pkg.title : <span className="truncate">{pkg.title}</span>}
+                </h2>
+                {pkg.title.length > 30 && (
+                  <button
+                    className="text-blue-500 text-sm underline"
+                    onClick={() => setShowFullTitle(!showFullTitle)}
+                  >
+                    {showFullTitle ? "View Less" : "View More"}
+                  </button>
+                )}
+
+                {/* Description */}
+                <p className={`text-base ${showFullDesc ? "" : "line-clamp-2"}`}>
+                  {pkg.description}
+                </p>
+                {pkg.description.length > 100 && (
+                  <button
+                    className="text-blue-500 text-sm underline mb-3"
+                    onClick={() => setShowFullDesc(!showFullDesc)}
+                  >
+                    {showFullDesc ? "View Less" : "View More"}
+                  </button>
+                )}
                 <p className="text-sm font-bold mb-1">
                   {pkg.nights} Nights / {pkg.days} Days
                 </p>
@@ -85,12 +111,26 @@ const Packages = () => {
                   <span className="text-green-600 text-lg font-bold">₹{pkg.discountPrice}</span>
                   <span className="text-gray-600 text-sm">Per Person</span>
                 </p>
+                {/* Inclusions */}
                 <ul className="list-none p-2 bg-white bg-opacity-20 rounded-lg flex flex-wrap gap-2 justify-center mt-3">
                   <li className="font-bold w-full text-center">Inclusions:</li>
-                  {pkg.inclusions.map((inclusion, index) => (
+                  {(showAllInclusions ? pkg.inclusions : pkg.inclusions.slice(0, 2)).map((inclusion, index) => (
                     <li key={index} className="text-sm bg-gray-200 p-2 rounded-full">{inclusion}</li>
                   ))}
+                  {pkg.inclusions.length > 2 && !showAllInclusions && (
+                    <li className="text-sm bg-gray-200 p-2 rounded-full">
+                      + {pkg.inclusions.length - 2} more
+                    </li>
+                  )}
                 </ul>
+                {pkg.inclusions.length > 2 && (
+                  <button
+                    className="text-blue-500 text-sm underline"
+                    onClick={() => setShowAllInclusions(!showAllInclusions)}
+                  >
+                    {showAllInclusions ? "View Less" : "View More"}
+                  </button>
+                )}
                 <div className="flex flex-col gap-3 mt-4">
                   <EnquiryButton onClick={handleEnquiryClick} text="Enquire Now" />
                   <div className="flex justify-center items-center mt-2 gap-1">
