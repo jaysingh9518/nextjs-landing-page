@@ -78,7 +78,7 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
     const isValidName = (name: string) => /^[a-zA-Z\s]+$/.test(name) && name.trim().length >= 3;
     const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     const isValidMobile = (mobile: string) => /^[6-9]\d{9}$/.test(mobile);
-    const isValidPackage = (index: string) => packageOptions.findIndex(option => option.toLowerCase() === formData.package.toLowerCase()) >= 0;
+    const isValidPackage = (index: string) => packageOptions.findIndex(option => option.toLowerCase() === index.toLowerCase()) >= 0;
     const isValidDate = (date: string) => new Date(date) > new Date();
     const isValidTravelers = (travelers: string) => /^[1-9]\d*$/.test(travelers);
 
@@ -262,7 +262,7 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                     </div>
                     
                     {formData.date && !isValidDate(formData.date) && (
-                        <p className="text-red-500 text-sm mb-1">Please select a valid travel date. Travel dates must be at least 1 days from today's date.</p>
+                        <p className="text-red-500 text-sm mb-1">Please select a valid travel date. Travel dates must be at least 1 days from today&apos;s date.</p>
                     )}
                     {/* Travel Date */}
                     <div className="relative z-0 w-full mb-6 group">
