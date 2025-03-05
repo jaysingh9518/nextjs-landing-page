@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { HiOutlineX } from "react-icons/hi";
@@ -30,6 +31,7 @@ const packageOptions = [
 ];
 
 const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ isVisible, onClose }) => {
+    const router = useRouter();
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -73,17 +75,12 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
         return d.getDate().toString().padStart(2, '0') + '-' + (d.getMonth() + 1).toString().padStart(2, '0') + '-' + d.getFullYear();
     };
 
-    const validate = () => {
-            const newErrors: { [key: string]: string } = {};
-        if (!formData.name.trim() || formData.name.length < 3) newErrors.name = "Name must be at least 3 characters long.";
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Invalid email format.";
-        if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = "Phone number must be 10 digits.";
-        if (!formData.package) newErrors.package = "Please select a package.";
-        if (!formData.date || new Date(formData.date) <= new Date()) newErrors.date = "Date must be in the future.";
-        if (!/^[1-9]\d*$/.test(formData.travelers)) newErrors.travelers = "Number of travelers must be a valid number.";
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
+    const isValidName = (name: string) => /^[a-zA-Z\s]+$/.test(name) && name.trim().length >= 3;
+    const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isValidMobile = (mobile: string) => /^[6-9]\d{9}$/.test(mobile);
+    const isValidPackage = (index: string) => packageOptions.findIndex(option => option.toLowerCase() === formData.package.toLowerCase()) >= 0;
+    const isValidDate = (date: string) => new Date(date) > new Date();
+    const isValidTravelers = (travelers: string) => /^[1-9]\d*$/.test(travelers);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -92,7 +89,36 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!validate()) return;
+        
+        if (!isValidName(formData.name)) {
+            setStatus('❌ Please enter a valid name with at least 3 characters.');
+            return;
+        }
+
+        if (!isValidMobile(formData.phone)) {
+            setStatus('❌ Please enter a valid 10-digit mobile number.');
+            return;
+        }
+
+        if (!isValidEmail(formData.email)) {
+            setStatus('❌ Please enter a valid email address.');
+            return;
+        }
+
+        if (!isValidPackage(formData.package)) {
+            setStatus('❌ Please select a valid package.');
+            return;
+        }
+
+        if (!isValidDate(formData.date)) {
+            setStatus('❌ Please enter a valid future date.');
+            return;
+        }
+
+        if (!isValidTravelers(formData.travelers)) {
+            setStatus('❌ Please enter a valid number of travelers.');
+            return;
+        }
 
         const formDataToSubmit = new URLSearchParams();
         Object.entries(ENTRY_IDS).forEach(([key, entryId]) => {
@@ -106,9 +132,10 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 mode: "no-cors",
             });
-            setStatus("✅ Enquiry submitted successfully!");
+            // setStatus("✅ Enquiry submitted successfully!");
             setFormData({ name: "", email: "", phone: "", package: "", date: "", travelers: "", message: "" });
-            setTimeout(() => onClose(), 4000);
+            router.push('/thank-you');
+            onClose();
         } catch (error) {
             console.error("Error submitting enquiry:", error);
             setStatus("❌ Error submitting enquiry. Please try again.");
@@ -134,6 +161,10 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                 {status && <p className="text-center text-sm font-semibold mb-4">{status}</p>}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
+                    
+                    {formData.name && !isValidName(formData.name) && (
+                        <p className="text-red-500 text-sm mb-1">Please enter a valid name with at least 3 characters.</p>
+                    )}
                     {/* Name */}
                     <div className="relative z-0 w-full mb-6 group">
                         <div className="relative">
@@ -154,8 +185,10 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                             </label>
                         </div>
                     </div>
-                    {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-
+                    
+                    {formData.email && !isValidEmail(formData.email) && (
+                        <p className="text-red-500 text-sm mb-1">Enter a valid email address</p>
+                    )}
                     {/* Email */}
                     <div className="relative z-0 w-full mb-6 group">
                         <div className="relative">
@@ -176,8 +209,10 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                             </label>
                         </div>
                     </div>
-                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-
+                    
+                    {formData.phone && !isValidMobile(formData.phone) && (
+                        <p className="text-red-500 text-sm mb-1">Enter a valid 10-digit mobile number</p>
+                    )}
                     {/* Mobile */}
                     <div className="relative z-0 w-full mb-6 group">
                         <div className="relative">
@@ -198,8 +233,10 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                             </label>
                         </div>
                     </div>
-                    {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
-
+                    
+                    {formData.package && !isValidPackage(formData.package) && (
+                        <p className="text-red-500 text-sm mb-1">Please select a valid package</p>
+                    )}
                     {/* Package */}
                     <div className="relative z-0 w-full mb-6 group">
                         <div className="relative">
@@ -223,8 +260,10 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                             </label>
                         </div>
                     </div>
-                    {errors.package && <p className="text-red-500 text-sm">{errors.package}</p>}
                     
+                    {formData.date && !isValidDate(formData.date) && (
+                        <p className="text-red-500 text-sm mb-1">Please select a valid travel date. Travel dates must be at least 1 days from today's date.</p>
+                    )}
                     {/* Travel Date */}
                     <div className="relative z-0 w-full mb-6 group">
                         <div className="relative">
@@ -245,8 +284,10 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                             </label>
                         </div>
                     </div>
-                    {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
-
+                    
+                    {formData.travelers && !isValidTravelers(formData.travelers) && (
+                        <p className="text-red-500 text-sm mb-1">Please enter a valid travelers count</p>
+                    )}
                     {/* Traveler */}
                     <div className="relative z-0 w-full mb-6 group">
                         <div className="relative">

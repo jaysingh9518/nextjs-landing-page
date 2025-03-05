@@ -12,7 +12,6 @@ import { siteDetails } from '@/data/siteDetails';
 // import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 import "./globals.css";
-import "./layout.css";
 
 const manrope = Manrope({ subsets: ['latin'] });
 const sourceSans = Source_Sans_3({ subsets: ['latin'] });

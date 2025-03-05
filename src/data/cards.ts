@@ -4,9 +4,9 @@ export const cardsData = {
     cards: [
       {
         id: 1,
-        title: 'Goa',
-        description: 'Explore the beaches of Goa',
-        background: '/images/goa.webp',
+        title: 'Shimla',
+        description: '',
+        background: '/images/shimla.webp',
       },
       {
         id: 2,
@@ -16,9 +16,21 @@ export const cardsData = {
       },
       {
         id: 3,
-        title: 'Kerala',
-        description: 'Relax in the backwaters of Kerala',
-        background: '/images/kerala.webp',
+        title: 'Kasol',
+        description: '',
+        background: '/images/kasol.webp',
+      },
+      {
+        id: 4,
+        title: 'Dharmshala',
+        description: '',
+        background: '/images/dharamshala.webp',
+      },
+      {
+        id: 5,
+        title: 'Khajjiar',
+        description: '',
+        background: '/images/khajjiar.webp',
       },
       // Add more cards here
     ],

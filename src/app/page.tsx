@@ -15,17 +15,27 @@ import EnquiryPopup from "@/components/EnquiryPopup";
 
 const HomePage: React.FC = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  
+
   const handleClosePopup = () => {
     setIsPopupVisible(false);
+    // Store the current timestamp in localStorage when the popup is closed
+    localStorage.setItem("enquiryPopupOpened", new Date().getTime().toString());
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const popupLastOpened = localStorage.getItem("enquiryPopupOpened");
+    const now = new Date().getTime();
+    const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+    // Only show the popup if it's not already visible and hasn't been opened today
+    if (!isPopupVisible && (!popupLastOpened || now - parseInt(popupLastOpened) > oneDay)) {
+      const timer = setTimeout(() => {
         setIsPopupVisible(true);
-    }, 10000); // Show popup after 10 seconds
-    return () => clearTimeout(timer);
-  }, []);
+      }, 10000); // Show popup after 10 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [isPopupVisible]); // Fixed dependency array
 
   return (
     <>
