@@ -1,39 +1,34 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { FaArrowUp } from 'react-icons/fa';
-import styles from './GoToTopButton.module.css';
+import React, { useState, useEffect } from "react";
+import { FaArrowUp } from "react-icons/fa";
 
-const GoToTopButton: React.FC = () => {
+const GoToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
-    if (window.scrollY > 300) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
+    setIsVisible(window.scrollY > 300);
   };
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', toggleVisibility);
+    window.addEventListener("scroll", toggleVisibility);
     return () => {
-      window.removeEventListener('scroll', toggleVisibility);
+      window.removeEventListener("scroll", toggleVisibility);
     };
   }, []);
 
   return (
-    <div className={styles.goToTopButton}>
+    <div className="fixed bottom-6 right-6 z-50">
       {isVisible && (
-        <button onClick={scrollToTop} className={styles.button}>
-          <FaArrowUp />
+        <button
+          onClick={scrollToTop}
+          className="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
+        >
+          <FaArrowUp className="h-5 w-5" />
         </button>
       )}
     </div>

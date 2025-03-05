@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { FaPaperPlane } from "react-icons/fa";
+import { FaPaperPlane, FaUser as RegUser, FaEnvelope as RegEMail, FaPhoneAlt as RegPhone, FaStickyNote as RegMessage } from "react-icons/fa";
 
 const ContactUs: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -34,13 +34,13 @@ const ContactUs: React.FC = () => {
         }
 
         const googleFormURL =
-            'https://docs.google.com/forms/u/0/d/e/1FAIpQLScAcj6UrrB0vuHytmE3s7QgP5Nn4q5C0jY6S5tgvlkEASMJYg/formResponse';
+            'https://docs.google.com/forms/u/0/d/e/1FAIpQLSc23VUzjdJH0CwENMUrHXpi58mDU77bJiuRWiN1KAVaaWf3uA/formResponse';
 
         const formDataToSubmit = new URLSearchParams();
-        formDataToSubmit.append('entry.783375438', formData.name);
-        formDataToSubmit.append('entry.1989905515', formData.email);
-        formDataToSubmit.append('entry.1387448141', formData.mobile);
-        formDataToSubmit.append('entry.74788637', formData.message);
+        formDataToSubmit.append('entry.854873885', formData.name);
+        formDataToSubmit.append('entry.689941301', formData.email);
+        formDataToSubmit.append('entry.1560959977', formData.mobile);
+        formDataToSubmit.append('entry.663185575', formData.message);
 
         try {
             await fetch(googleFormURL, {
@@ -77,60 +77,92 @@ const ContactUs: React.FC = () => {
                 </p>
             )}
 
-            <form onSubmit={handleSubmit} className="max-w-3xl mx-auto bg-white p-8 rounded-lg custom-box-shadow">
-                <div className="mb-4">
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                        required
-                    />
+            <form onSubmit={handleSubmit} className="max-w-xl mx-auto bg-white p-8 rounded-lg custom-box-shadow">
+                {/* Full Name */}
+                <div className="relative z-0 w-full mb-6 group">
+                    <div className="relative">
+                        <RegUser className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400 peer-focus:text-blue-600" />
+                        <input 
+                            type="text" 
+                            name="name" 
+                            value={formData.name}
+                            onChange={handleChange} 
+                            id="name" 
+                            className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                            placeholder=" " 
+                            required 
+                        />
+                        <label htmlFor="name" 
+                            className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Full Name
+                        </label>
+                    </div>
                 </div>
                 {formData.email && !isValidEmail(formData.email) && (
                     <p className="text-red-500">Enter a valid email address</p>
                 )}
-                <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                        required
-                    />
+                {/* Email */}
+                <div className="relative z-0 w-full mb-6 group">
+                    <div className="relative">
+                        <RegEMail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400 peer-focus:text-blue-600" />
+                        <input 
+                            type="email" 
+                            name="email" 
+                            value={formData.email}
+                            onChange={handleChange} 
+                            id="email" 
+                            className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                            placeholder=" " 
+                            required 
+                        />
+                        <label htmlFor="email" 
+                            className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Email Address
+                        </label>
+                    </div>
                 </div>
                 {formData.mobile && !isValidMobile(formData.mobile) && (
                     <p className="text-red-500">Enter a valid 10-digit mobile number</p>
                 )}
-                <div className="mb-4">
-                    <label htmlFor="mobile" className="block text-sm font-medium text-gray-700">Mobile</label>
-                    <input
-                        type="tel"
-                        id="mobile"
-                        name="mobile"
-                        value={formData.mobile}
-                        onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                        required
-                    />
+                {/* Mobile */}
+                <div className="relative z-0 w-full mb-6 group">
+                    <div className="relative">
+                        <RegPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400 peer-focus:text-blue-600" />
+                        <input 
+                            type="tel" 
+                            name="mobile"
+                            value={formData.mobile}
+                            onChange={handleChange}
+                            id="phone" 
+                            className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                            placeholder=" " 
+                            required 
+                        />
+                        <label htmlFor="phone" 
+                            className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Mobile
+                        </label>
+                    </div>
                 </div>
-                <div className="mb-4">
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
-                    <textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        rows={4}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                        required
-                    ></textarea>
+                {/* Message */}
+                <div className="relative z-0 w-full mb-6 group">
+                    <div className="relative">
+                        <RegMessage className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400 peer-focus:text-blue-600" />
+                        <textarea 
+                            name="message"
+                            value={formData.message}
+                            onChange={handleChange}
+                            id="message" 
+                            className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                            placeholder=" " 
+                            rows={1}
+                        >
+                        </textarea>
+                        <label htmlFor="message" 
+                            className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Any Question or Message
+                        </label>
+                    </div>
                 </div>
                 <div className="text-center">
                     <button

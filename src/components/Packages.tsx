@@ -53,7 +53,7 @@ const Packages = () => {
   return (
     <div className="relative flex flex-col items-center justify-center p-5 overflow-hidden w-full">
       <button
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 text-black hover:text-red-500 bg-white p-2 rounded-full shadow-lg z-10"
+        className="absolute top-1/2 left-1 transform -translate-y-1/2 text-black hover:text-red-500 bg-white p-2 rounded-full shadow-lg z-10"
         onClick={handlePrevClick}
       >
         <FaArrowLeft size={24} />
@@ -127,7 +127,7 @@ const Packages = () => {
       </div>
 
       <button
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 text-black hover:text-red-500 bg-white p-2 rounded-full shadow-lg z-10"
+        className="absolute top-1/2 right-1 transform -translate-y-1/2 text-black hover:text-red-500 bg-white p-2 rounded-full shadow-lg z-10"
         onClick={handleNextClick}
       >
         <FaArrowRight size={24} />

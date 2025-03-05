@@ -5,6 +5,7 @@ export const footerDetails: {
     quickLinks: IMenuItem[];
     email: string;
     telephone: string;
+    mobile: string;
     address: string;
     socials: ISocials;
 } = {
@@ -32,7 +33,8 @@ export const footerDetails: {
         }
     ],
     email: 'info@makemytravls.com',
-    telephone: '+91 9997365898',
+    telephone: '+91 5624338313',
+    mobile: '+91 9997365898',
     address: 'Khasra No. 513, House No. 31/PN/397, Prem Nagar, Rajpur Chungi, Shamshabad Road, Agra, Uttar Pradesh – 282001',
     socials: {
         twitter: 'https://twitter.com/makemytravls',
