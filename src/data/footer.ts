@@ -12,12 +12,12 @@ export const footerDetails: {
     subheading: "From breathtaking destinations to exclusive travel deals, Make My Travls puts the world at your fingertips.",
     quickLinks: [
         {
-            text: "Benefits",
-            url: "#benefits"
-        },
-        {
             text: "Package",
             url: "#package"
+        },
+        {
+            text: "Benefits",
+            url: "#benefits"
         },
         {
             text: "Testimonials",
