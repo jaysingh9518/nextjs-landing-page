@@ -72,9 +72,10 @@ const Packages = () => {
                 key={pkg.id}
                 className="bg-white bg-opacity-15 backdrop-blur-md border border-white border-opacity-30 rounded-lg p-5 w-full text-center custom-box-shadow transition-transform transform hover:scale-105"
                 initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
+                viewport={{ once: false, amount: 0.2 }}
               >
                 {/* Title */}
                 <h2 className="text-xl font-bold mb-3">

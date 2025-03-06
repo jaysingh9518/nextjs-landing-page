@@ -1,14 +1,19 @@
 import React from 'react';
 import Image from 'next/image';
 import { testimonials } from '@/data/testimonials';
+import { motion } from 'framer-motion';
 
 const Testimonials: React.FC = () => {
     return (
         <div className="grid gap-14 max-w-lg w-full mx-auto lg:gap-8 lg:grid-cols-3 lg:max-w-full">
             {testimonials.map((testimonial, index) => (
-                <div
+                <motion.div
                     key={index}
                     className=""
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.2 }}
+                    // viewport={{ once: true }}
                 >
                     <div className="flex items-center mb-4 w-full justify-center lg:justify-start">
                         <Image
@@ -24,7 +29,7 @@ const Testimonials: React.FC = () => {
                         </div>
                     </div>
                     <p className="text-foreground-accent text-center lg:text-left">&quot;{testimonial.message}&quot;</p>
-                </div>
+                </motion.div>
             ))}
         </div>
     );

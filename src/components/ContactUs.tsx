@@ -77,15 +77,14 @@ const ContactUs: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col md:flex-row max-w-7xl w-full mx-auto px-6 gap-10 items-center">
+        <div className="flex flex-col-reverse md:flex-row max-w-7xl w-full mx-auto px-6 gap-10 items-center">
             {/* Image Section with Animation */}
             <motion.div 
                 className="w-full md:w-1/2"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                // viewport={{ once: true }} 
-                // animate={{ opacity: 1, x: 0 }} 
                 transition={{ duration: 1.5, ease: "easeInOut" }}
+                // viewport={{ once: true }} 
             >
                 <Image src="/images/contactcta.png" alt="Contact Cta" width={500} height={500} className="w-full h-auto" />
             </motion.div>
@@ -94,6 +93,7 @@ const ContactUs: React.FC = () => {
                 initial={{ opacity: 0, y: 50 }} 
                 whileInView={{ opacity: 1, y: 0 }} 
                 transition={{ duration: 1.5, ease: "easeInOut", delay: 0.2 }}
+                // viewport={{ once: true }}
             >
                 {status && (
                     <p className={`text-center font-semibold ${status.startsWith('❌') ? 'text-red-500' : 'text-green-500'}`}>{status}</p>
