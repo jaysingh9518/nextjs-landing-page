@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
 
         <Section
           id="packages"
-          title="Packages"
+          title="Himachal Packages"
           description="Simple, transparent pricing. No surprises."
         >
           <Packages />

@@ -54,7 +54,13 @@ const HeroCards = () => {
         </AnimatePresence>
       </div>
 
-      <div className="flex gap-3 justify-center flex-wrap p-3 mb-10">
+      <div className="md:mb-3 mb-16">
+        <a href="#packages" className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95">
+          Explore Packages Now
+        </a>
+      </div>
+      
+      <div className="hidden gap-3 justify-center flex-wrap p-3 mb-2 md:flex">
         {cards.map((card, index) => (
           <motion.div
             key={card.id}

@@ -18,16 +18,13 @@ const ENTRY_IDS = {
 };
 
 const packageOptions = [
-    "Golden Triangle - Delhi, Agra, Jaipur",
-    "Kerala Backwaters & Munnar Escape",
-    "Goa Beach Holiday & Water Adventures",
-    "Leh-Ladakh High-Altitude Adventure",
-    "Andaman Islands - Beach & Marine Bliss",
-    "Rajasthan’s Royal Heritage Tour",
-    "Himalayan Retreat - Manali & Shimla",
-    "Varanasi & The Sacred Ganges Tour",
-    "Meghalaya & Northeast Wonders Tour",
-    "Mysore & Coorg Coffee Trail Experience",
+    "Manali - 2N3D",
+    "Shimla - 2N3D",
+    "Manali - 3N4D",
+    "Shimla & Manali - 4N5D",
+    "Shimla, Manali & Kasol - 5N6D",
+    "Complete Himachal Tour - 8N9D",
+    "Grand Himachal with Amritsar - 8N9D",
 ];
 
 const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ isVisible, onClose }) => {
