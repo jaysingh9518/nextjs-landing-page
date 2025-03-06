@@ -9,6 +9,10 @@ import Footer from "@/components/Footer";
 import GoToTopButton from "@/components/GoToTopButton";
 import { siteDetails } from '@/data/siteDetails';
 
+// Gtag Config
+import Script from "next/script";
+const GTAG_ID = "AW-16911785832";
+
 // import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 import "./globals.css";
@@ -52,6 +56,18 @@ export default function RootLayout({
         className={`${manrope.className} ${sourceSans.className} antialiased`}
       >
         {siteDetails.googleAnalyticsId && <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />}
+        <Script async src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`} />
+        <Script
+          id="google-analytics"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GTAG_ID}');
+            `,
+          }}
+        />
         <Header />
         <Analytics />
         <SpeedInsights />
