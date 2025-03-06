@@ -32,5 +32,11 @@ export const cardsData = {
       description: 'Enjoy Switzerland-like meadows, pine forests, and a tranquil lake.',
       background: '/images/khajjiar.webp',
     },
+    {
+      id: 6,
+      title: 'Dalhousie',
+      description: 'Scenic hill station with colonial charm, lush forests, and tranquility.',
+      background: '/images/dalhousie.webp',
+    },
   ],
 };
