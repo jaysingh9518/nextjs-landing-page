@@ -3,21 +3,21 @@ import { siteDetails } from "./siteDetails";
 
 export const testimonials: ITestimonial[] = [
     {
-        name: 'John Smith',
-        role: 'Travel Enthusiast',
-        message: `${siteDetails.siteName} made my dream vacation a reality. The personalized itineraries and exclusive deals were beyond my expectations.`,
-        avatar: '/images/testimonial-1.webp',
+        name: 'Neeraj',
+        role: 'Satisfied Traveler',
+        message: `I loved the taxi services, comfortable stays, and breathtaking sightseeing tours provided by ${siteDetails.siteName}. The supportive taxi drivers and friendly hotel staff made my journey truly memorable!`,
+        avatar: '/images/user-300x300.png' ,
     },
     {
-        name: 'Jane Doe',
-        role: 'Adventure Seeker',
-        message: `Thanks to ${siteDetails.siteName}, I discovered hidden gems and unique experiences that I would have never found on my own. Their service is top-notch!`,
-        avatar: '/images/testimonial-2.webp',
+        name: 'Raj',
+        role: 'Happy Customer',
+        message: `Our trip to Kumbh from Delhi was seamlessly managed by ${siteDetails.siteName}. From comfortable transfers to smooth coordination, everything was well-planned. The clean cab, professional driver, and hassle-free journey made it a stress-free experience. Highly recommended!`,
+        avatar: '/images/user-300x300.png',
     },
     {
-        name: 'Emily Johnson',
-        role: 'Frequent Traveler',
-        message: `${siteDetails.siteName} is my go-to travel agency. Their 24/7 support and expert recommendations make every trip stress-free and enjoyable.`,
-        avatar: '/images/testimonial-3.webp',
+        name: 'Promod',
+        role: 'Delighted Guest',
+        message: `Our Manali tour with ${siteDetails.siteName} was amazing! The breathtaking cottage surroundings and the helpful staff added to the wonderful experience.`,
+        avatar: '/images/user-300x300.png',
     },
 ];
