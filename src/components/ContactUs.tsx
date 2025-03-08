@@ -20,6 +20,7 @@ const ContactUs: React.FC = () => {
     const isValidName = (name: string) => /^[a-zA-Z\s]+$/.test(name) && name.trim().length >= 3;
     const isValidMobile = (mobile: string) => /^[6-9]\d{9}$/.test(mobile);
     const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isValidMessage = (message: string) => message.trim().length <= 150;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -37,13 +38,18 @@ const ContactUs: React.FC = () => {
             return;
         }
 
+        if (!isValidEmail(formData.email)) {
+            setStatus('❌ Please enter a valid email address.');
+            return;
+        }
+
         if (!isValidMobile(formData.mobile)) {
             setStatus('❌ Please enter a valid 10-digit mobile number.');
             return;
         }
 
-        if (!isValidEmail(formData.email)) {
-            setStatus('❌ Please enter a valid email address.');
+        if (!isValidMessage(formData.message)) {
+            setStatus('❌ Please enter a message with a maximum of 150 characters.');
             return;
         }
 
@@ -95,12 +101,13 @@ const ContactUs: React.FC = () => {
                 transition={{ duration: 1.5, ease: "easeInOut", delay: 0.2 }}
                 // viewport={{ once: true }}
             >
-                {status && (
-                    <p className={`text-center font-semibold ${status.startsWith('❌') ? 'text-red-500' : 'text-green-500'}`}>{status}</p>
-                )}
                 
                 <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg">
                     
+                    {status && (
+                        <p className={`text-center mb-2 font-semibold ${status.startsWith('❌') ? 'text-red-500' : 'text-green-500'}`}>{status}</p>
+                    )}
+
                     {formData.name && !isValidName(formData.name) && (
                         <p className="text-red-500 text-sm mb-1">Please enter a valid name with at least 3 characters.</p>
                     )}
@@ -115,8 +122,7 @@ const ContactUs: React.FC = () => {
                                 onChange={handleChange} 
                                 id="namec" 
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                                placeholder=" " 
-                                required 
+                                placeholder=" "
                             />
                             <label htmlFor="namec" 
                                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -140,8 +146,7 @@ const ContactUs: React.FC = () => {
                                 onChange={handleChange} 
                                 id="emailc" 
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                                placeholder=" " 
-                                required 
+                                placeholder=" "
                             />
                             <label htmlFor="emailc" 
                                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -166,7 +171,6 @@ const ContactUs: React.FC = () => {
                                 id="phonec" 
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
                                 placeholder=" " 
-                                required 
                             />
                             <label htmlFor="phonec" 
                                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -175,6 +179,9 @@ const ContactUs: React.FC = () => {
                         </div>
                     </div>
                     
+                    {formData.message && formData.message.length > 150 && (
+                        <p className="text-red-500 text-sm mb-1">Message should not exceed 150 characters</p>
+                    )}
                     {/* Message */}
                     <div className="relative z-0 w-full mb-6">
                         <div className="relative">

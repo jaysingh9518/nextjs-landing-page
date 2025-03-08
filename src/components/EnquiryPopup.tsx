@@ -38,14 +38,12 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
         travelers: "",
         message: "",
     });
-    const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const [status, setStatus] = useState("");
     const [isShaking, setIsShaking] = useState(false);
     
     useEffect(() => {
         if (isVisible) {
             setStatus("");
-            setErrors({});
             setIsShaking(true);
             setTimeout(() => setIsShaking(false), 1000); // Stop shaking after 1 second
         }
@@ -78,6 +76,7 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
     const isValidPackage = (index: string) => packageOptions.findIndex(option => option.toLowerCase() === index.toLowerCase()) >= 0;
     const isValidDate = (date: string) => new Date(date) > new Date();
     const isValidTravelers = (travelers: string) => /^[1-9]\d*$/.test(travelers);
+    const isValidMessage = (message: string) => message.trim().length <= 150;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -92,13 +91,13 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
             return;
         }
 
-        if (!isValidMobile(formData.phone)) {
-            setStatus('❌ Please enter a valid 10-digit mobile number.');
+        if (!isValidEmail(formData.email)) {
+            setStatus('❌ Please enter a valid email address.');
             return;
         }
 
-        if (!isValidEmail(formData.email)) {
-            setStatus('❌ Please enter a valid email address.');
+        if (!isValidMobile(formData.phone)) {
+            setStatus('❌ Please enter a valid 10-digit mobile number.');
             return;
         }
 
@@ -114,6 +113,11 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
 
         if (!isValidTravelers(formData.travelers)) {
             setStatus('❌ Please enter a valid number of travelers.');
+            return;
+        }
+
+        if (!isValidMessage(formData.message)) {
+            setStatus('❌ Please enter a valid message with a maximum of 150 characters.');
             return;
         }
 
@@ -174,7 +178,6 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                                 id="name" 
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
                                 placeholder=" " 
-                                required 
                             />
                             <label htmlFor="name" 
                                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -197,8 +200,7 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                                 onChange={handleChange} 
                                 id="email" 
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                                placeholder=" " 
-                                required 
+                                placeholder=" "
                             />
                             <label htmlFor="email" 
                                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -221,8 +223,7 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                                 onChange={handleChange}
                                 id="phone" 
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                                placeholder=" " 
-                                required 
+                                placeholder=" "
                             />
                             <label htmlFor="phone" 
                                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -244,7 +245,6 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                                 onChange={handleChange}
                                 id="package" 
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                required 
                             >
                                 <option value="">Select Package</option>
                                 {packageOptions.map((pkg, index) => (
@@ -272,8 +272,7 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                                 onChange={handleChange}
                                 id="date" 
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                                placeholder=" " 
-                                required 
+                                placeholder=" "
                             />
                             <label htmlFor="date" 
                                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -296,8 +295,7 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                                 onChange={handleChange}
                                 id="travelers" 
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                                placeholder=" " 
-                                required 
+                                placeholder=" "
                             />
                             <label htmlFor="travelers" 
                                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -305,8 +303,10 @@ const EnquiryPopup: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ i
                             </label>
                         </div>
                     </div>
-                    {errors.travelers && <p className="text-red-500 text-sm">{errors.travelers}</p>}
                     
+                    {formData.message && formData.message.length > 150 && (
+                        <p className="text-red-500 text-sm mb-1">Message should not exceed 150 characters</p>
+                    )}
                     {/* Message */}
                     <div className="relative z-0 w-full mb-6 group">
                         <div className="relative">
