@@ -3,6 +3,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cardsData } from "@/data/cards";
 
@@ -20,6 +21,7 @@ const HeroCards = () => {
   const cards = cardsData.cards;
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
   const [status, setStatus] = useState('');
+  const router = useRouter();
 
   const isValidName = (name: string) => /^[a-zA-Z\s]+$/.test(name) && name.trim().length >= 3;
   const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -84,6 +86,7 @@ const HeroCards = () => {
       if (res.ok) {
         setStatus("Thank you! We'll contact you shortly with exclusive travel offers.");
         setShowLeadForm(false);
+        router.push('/thank-you');
         setFormData({
           name: "",
           email: "",
