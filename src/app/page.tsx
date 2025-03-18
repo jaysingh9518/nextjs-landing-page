@@ -42,8 +42,14 @@ const HomePage: React.FC = () => {
       <HeroCards />
       <Container>
         
-        <Packages />
-        
+        <Section
+          id="packages"
+          title="Himachal Packages"
+          description="Choose from our wide range of packages."
+        >
+          <Packages />
+        </Section>
+
         <Section
           id="benefits"
           title="Benefits"
