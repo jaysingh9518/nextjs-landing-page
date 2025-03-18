@@ -3,6 +3,7 @@ import { IPackage } from "@/types";
 export const packages: IPackage[] = [
     {
         id: 1,
+        image: "https://images.unsplash.com/photo-1579689189009-874f5cac2db5",
         title: "Manali",
         description: "Experience the breathtaking landscapes and serene ambiance of Manali, perfect for nature lovers and adventure seekers alike.",
         nights: 2,
@@ -20,6 +21,7 @@ export const packages: IPackage[] = [
     },
     {
         id: 2,
+        image: "https://images.unsplash.com/photo-1597074866923-dc0589150358",
         title: "Shimla",
         description: "Explore the colonial charm and panoramic views of Shimla, offering a perfect blend of history, culture, and natural beauty.",
         nights: 2,
@@ -36,6 +38,7 @@ export const packages: IPackage[] = [
     },
     {
         id: 3,
+        image: "https://images.unsplash.com/photo-1516406742981-2b7d67ec4ae8",
         title: "Manali (Extended)",
         description: "A longer stay in Manali with more time to indulge in thrilling adventures and soak in the tranquil mountain scenery.",
         nights: 3,
@@ -53,6 +56,7 @@ export const packages: IPackage[] = [
     },
     {
         id: 4,
+        image: "https://images.unsplash.com/photo-1609948545248-b4f2b2054f15",
         title: "Shimla & Manali",
         description: "A delightful journey covering both Shimla and Manali, offering a combination of cultural experiences and scenic landscapes.",
         nights: 4,
@@ -69,6 +73,7 @@ export const packages: IPackage[] = [
     },
     {
         id: 5,
+        image: "https://images.unsplash.com/photo-1581791534721-e599df4417f7",
         title: "Shimla, Manali & Kasol",
         description: "Immerse yourself in the beauty of Shimla, Manali, and Kasol, featuring mesmerizing valleys and picturesque surroundings.",
         nights: 5,
@@ -85,6 +90,7 @@ export const packages: IPackage[] = [
     },
     {
         id: 6,
+        image: "https://images.unsplash.com/photo-1625401586082-9a9b17bc4ce5",
         title: "Complete Himachal Tour",
         description: "An extensive tour covering Shimla, Manali, Kasol, Dharamshala, and Dalhousie, offering a perfect mix of adventure and relaxation.",
         nights: 8,
@@ -101,6 +107,7 @@ export const packages: IPackage[] = [
     },
     {
         id: 7,
+        image: "https://images.unsplash.com/photo-1609947017526-bd33c710b3a9",
         title: "Grand Himachal with Amritsar",
         description: "A majestic journey covering all major Himachal destinations along with the spiritual experience of Amritsar's Golden Temple.",
         nights: 8,

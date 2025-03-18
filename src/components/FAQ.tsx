@@ -8,7 +8,7 @@ import { faqs } from "@/data/faq";
 
 const FAQ: React.FC = () => {
     return (
-        <section id="faq" className="py-10 lg:py-20">
+        <section id="faq" className="py-10 px-10 lg:px-20 lg:py-20">
             <div className="flex flex-col lg:flex-row gap-10">
                 <motion.div 
                     initial={{ opacity: 0, x: -50 }} 

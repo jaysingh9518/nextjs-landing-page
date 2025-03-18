@@ -18,6 +18,7 @@ export interface IBenefitBullet {
 
 export interface IPackage {
     id: number;
+    image: string;
     title: string;
     description: string;
     nights: number;

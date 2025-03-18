@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const Stats: React.FC = () => {
     return (
-        <section id="stats" className="py-10 lg:py-20">
+        <section id="stats" className="py-10 px-10 lg:px-20 lg:py-20">
             <div className="grid sm:grid-cols-3 gap-8">
                 {stats.map((stat, index) => (
                     <motion.div 

@@ -41,15 +41,9 @@ const HomePage: React.FC = () => {
     <>
       <HeroCards />
       <Container>
-
-        <Section
-          id="packages"
-          title="Himachal Packages"
-          description="Simple, transparent pricing. No surprises."
-        >
-          <Packages />
-        </Section>
-
+        
+        <Packages />
+        
         <Section
           id="benefits"
           title="Benefits"
