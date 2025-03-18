@@ -13,13 +13,30 @@ const HeroCards = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
+    mobile: "",
     travelDate: "",
     guests: "2",
   });
   const cards = cardsData.cards;
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
   const [status, setStatus] = useState('');
+
+  const isValidName = (name: string) => /^[a-zA-Z\s]+$/.test(name) && name.trim().length >= 3;
+  const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isValidMobile = (mobile: string) => /^[6-9]\d{9}$/.test(mobile);
+  const isValidTravelDate = (date: string) => /^\d{2}-\d{2}-\d{4}$/.test(date);
+  const isValidGuests = (guests: string) => /^[1-9]\d*$/.test(guests);
+
+  const handleFormReset = () => {
+    setFormData({
+        name: "",
+        email: "",
+        mobile: "",
+        travelDate: "",
+        guests: "2",
+    });
+    setStatus("");
+}
 
   // Lead form handlers
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -29,6 +46,32 @@ const HeroCards = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isValidName(formData.name)) {
+      setStatus('❌ Please enter a valid name with at least 3 characters.');
+      return;
+    }
+
+    if (!isValidEmail(formData.email)) {
+      setStatus('❌ Please enter a valid email address.');
+      return;
+    }
+
+    if (!isValidMobile(formData.mobile)) {
+      setStatus('❌ Please enter a valid 10-digit mobile number.');
+      return;
+    }
+
+    if (!isValidTravelDate(formData.travelDate)) {
+      setStatus('❌ Please enter a valid future date (DD-MM-YYYY).');
+      return;
+    }
+
+    if (!isValidGuests(formData.guests)) {
+      setStatus('❌ Please enter a valid number of guests (1-99).');
+      return;
+    }
+
     setStatus("Sending...");
   
     try {
@@ -44,7 +87,7 @@ const HeroCards = () => {
         setFormData({
           name: "",
           email: "",
-          phone: "",
+          mobile: "",
           travelDate: "",
           guests: "2",
         });
@@ -176,6 +219,10 @@ const HeroCards = () => {
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
+
+                {formData.name && !isValidName(formData.name) && (
+                  <p className="text-red-500 text-sm mb-1">Please enter a valid name with at least 3 characters.</p>
+                )}
                 <label htmlFor="name" className="sr-only">Name</label>
                 <input
                   type="text"
@@ -183,6 +230,7 @@ const HeroCards = () => {
                   name="name"
                   placeholder="Your Name"
                   required
+                  maxLength={30}
                   value={formData.name}
                   onChange={handleInputChange}
                   className="w-full bg-white/10 backdrop-blur-md border border-white/30 text-white placeholder-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -190,6 +238,9 @@ const HeroCards = () => {
               </div>
               
               <div>
+                {formData.email &&!isValidEmail(formData.email) && (
+                  <p className="text-red-500 text-sm mb-1">Please enter a valid email address.</p>
+                )}
                 <label htmlFor="email" className="sr-only">Email</label>
                 <input
                   type="email"
@@ -197,6 +248,7 @@ const HeroCards = () => {
                   name="email"
                   placeholder="Your Email"
                   required
+                  maxLength={40}
                   value={formData.email}
                   onChange={handleInputChange}
                   className="w-full bg-white/10 backdrop-blur-md border border-white/30 text-white placeholder-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -204,21 +256,33 @@ const HeroCards = () => {
               </div>
               
               <div>
-                <label htmlFor="phone" className="sr-only">Phone</label>
+                {formData.mobile &&!isValidMobile(formData.mobile) && (
+                  <p className="text-red-500 text-sm mb-1">Please enter a valid phone number.</p>
+                )}
+                <label htmlFor="mobile" className="sr-only">Mobile</label>
                 <input
                   type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="Your Phone"
+                  id="mobile"
+                  name="mobile"
+                  placeholder="Your mobile"
                   required
-                  value={formData.phone}
-                  onChange={handleInputChange}
+                  value={formData.mobile}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, ""); // Allow digits only
+                    if (value.length <= 10) {
+                      handleInputChange(e);
+                    }
+                  }}
+                  maxLength={10}
                   className="w-full bg-white/10 backdrop-blur-md border border-white/30 text-white placeholder-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
+                    {formData.travelDate &&!isValidTravelDate(formData.travelDate) && (
+                      <p className="text-red-500 text-sm mb-1">Please enter a valid travel date.</p>
+                    )}
                     <label htmlFor="travelDate" className="sr-only">Travel Date</label>
                     <input
                         type="date"
@@ -232,6 +296,9 @@ const HeroCards = () => {
                 </div>
                 
                 <div>
+                  {formData.guests &&!isValidGuests(formData.guests) && (
+                    <p className="text-red-500 text-sm mb-1">Please enter a valid number of guests.</p>
+                  )}
                   <label htmlFor="guests" className="sr-only">Guests</label>
                   <input
                     type="number"
@@ -239,16 +306,34 @@ const HeroCards = () => {
                     name="guests"
                     placeholder="Number of Guests"
                     required
+                    maxLength={100}
                     value={formData.guests}
                     onChange={handleInputChange}
                     className="w-full bg-white/10 backdrop-blur-md border border-white/30 text-white placeholder-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
-              
+
+              {/* Clear Button */}
+              <button 
+                  type="button" 
+                  onClick={handleFormReset} 
+                  className="
+                      w-full py-3 
+                      bg-gradient-to-r from-purple-500 to-pink-500
+                      text-white font-semibold 
+                      rounded-xl shadow-md 
+                      hover:from-pink-500 hover:to-purple-500 
+                      hover:scale-105 
+                      transition-all duration-300
+                  "
+              >
+                  Clear All
+              </button>
               <button
                 type="submit"
-                className="w-full px-6 py-4 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold text-lg rounded-lg shadow-lg transition-all duration-300 ease-in-out"
+                className="w-full px-6 py-4 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold text-lg rounded-lg shadow-lg hover:scale-105 
+                            transition-all duration-300 ease-in-out"
               >
                 Get My Custom Quote
               </button>
@@ -363,13 +448,16 @@ const HeroCards = () => {
               </div>
               
               <form onSubmit={handleSubmit} className="space-y-4">
+                {status && <p className="text-red-500">{status}</p>}
                 <div>
+                  {formData.name && !isValidName(formData.name) && <p className="text-red-500">Please enter a valid name.</p>}
                   <label htmlFor="popup-name" className="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
                   <input
                     type="text"
                     id="popup-name"
                     name="name"
                     required
+                    maxLength={30}
                     value={formData.name}
                     onChange={handleInputChange}
                     className="w-full bg-white/10 border border-white/30 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -377,12 +465,14 @@ const HeroCards = () => {
                 </div>
                 
                 <div>
+                  {formData.email &&!isValidEmail(formData.email) && <p className="text-red-500">Please enter a valid email address.</p>}
                   <label htmlFor="popup-email" className="block text-sm font-medium text-gray-300 mb-1">Email Address</label>
                   <input
                     type="email"
                     id="popup-email"
                     name="email"
                     required
+                    maxLength={30}
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full bg-white/10 border border-white/30 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -390,19 +480,22 @@ const HeroCards = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="popup-phone" className="block text-sm font-medium text-gray-300 mb-1">Phone Number</label>
+                  {formData.mobile &&!isValidMobile(formData.mobile) && <p className="text-red-500">Please enter a valid mobile number.</p>}
+                  <label htmlFor="popup-mobile" className="block text-sm font-medium text-gray-300 mb-1">Mobile Number</label>
                   <input
                     type="tel"
-                    id="popup-phone"
-                    name="phone"
+                    id="popup-mobile"
+                    name="mobile"
                     required
-                    value={formData.phone}
+                    maxLength={10}
+                    value={formData.mobile}
                     onChange={handleInputChange}
                     className="w-full bg-white/10 border border-white/30 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
+                  {formData.travelDate && !isValidTravelDate(formData.travelDate) && <p className="text-red-500">Please enter a valid date.</p>}
                   <div>
                       <label htmlFor="popup-travelDate" className="block text-sm font-medium text-gray-300 mb-1">
                           Travel Date
@@ -418,6 +511,7 @@ const HeroCards = () => {
                       />
                   </div>
                   <div>
+                      {formData.guests && !isValidGuests(formData.guests) && <p className="text-red-500">Please enter a valid number of guests.</p>}
                       <label htmlFor="popup-guests" className="block text-sm font-medium text-gray-300 mb-1">
                           Guests
                       </label>
@@ -426,16 +520,33 @@ const HeroCards = () => {
                           id="popup-guests"
                           name="guests"
                           required
+                          maxLength={100}
                           value={formData.guests}
                           onChange={handleInputChange}
                           className="w-full bg-white/10 border border-white/30 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                   </div>
                 </div>
-                
+                {/* Clear Button */}
+                <button 
+                    type="button" 
+                    onClick={handleFormReset} 
+                    className="
+                        w-full py-3 
+                        bg-gradient-to-r from-purple-500 to-pink-500
+                        text-white font-semibold 
+                        rounded-xl shadow-md 
+                        hover:from-pink-500 hover:to-purple-500 
+                        hover:scale-105 
+                        transition-all duration-300
+                    "
+                >
+                    Clear All
+                </button>
                 <button
                   type="submit"
-                  className="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold rounded-lg shadow-lg transition-all duration-300"
+                  className="w-full px-6 py-4 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold text-lg rounded-lg shadow-lg hover:scale-105 
+                            transition-all duration-300 ease-in-out"
                 >
                   Get Exclusive Deals Now
                 </button>
@@ -444,8 +555,29 @@ const HeroCards = () => {
                 {/* <p className="text-xs text-gray-400 text-center">
                   By submitting, you agree to receive travel offers via email & SMS.
                   Your information is protected by our Privacy Policy.
-                </p> */}
+                </p> */}                
               </form>
+               {/* Trust badges */}
+              <div className="flex justify-center items-center gap-4 mt-4">
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  <span className="ml-1 text-sm">Trusted</span>
+                </div>
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                  <span className="ml-1 text-sm">Secure</span>
+                </div>
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="ml-1 text-sm">24/7 Support</span>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         )}

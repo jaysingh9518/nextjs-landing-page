@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { FaPaperPlane, FaUser as RegUser, FaEnvelope as RegEMail, FaPhoneAlt as RegPhone, FaStickyNote as RegMessage } from "react-icons/fa";
+import { FaPaperPlane, FaUser as RegUser, FaEnvelope as RegEMail, FaPhoneAlt as RegPhone, FaStickyNote as RegMessage, FaWhatsapp } from "react-icons/fa";
 
 const ContactUs: React.FC = () => {
     const router = useRouter();
@@ -16,6 +16,16 @@ const ContactUs: React.FC = () => {
         message: ''
     });
     const [status, setStatus] = useState('');
+
+    const handleFormReset = () => {
+        setFormData({
+            name: "",
+            email: "",
+            mobile: "",
+            message: "",
+        });
+        setStatus("");
+    }
 
     const isValidName = (name: string) => /^[a-zA-Z\s]+$/.test(name) && name.trim().length >= 3;
     const isValidMobile = (mobile: string) => /^[6-9]\d{9}$/.test(mobile);
@@ -53,33 +63,37 @@ const ContactUs: React.FC = () => {
             return;
         }
 
-        const googleFormURL =
-            'https://docs.google.com/forms/u/0/d/e/1FAIpQLSc23VUzjdJH0CwENMUrHXpi58mDU77bJiuRWiN1KAVaaWf3uA/formResponse';
-
-        const formDataToSubmit = new URLSearchParams();
-        formDataToSubmit.append('entry.854873885', formData.name);
-        formDataToSubmit.append('entry.689941301', formData.email);
-        formDataToSubmit.append('entry.1560959977', formData.mobile);
-        formDataToSubmit.append('entry.663185575', formData.message);
+        setStatus('Sending...');
 
         try {
-            await fetch(googleFormURL, {
-                method: 'POST',
-                body: formDataToSubmit.toString(),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                mode: 'no-cors',
+            const res = await fetch("/api/sendMail", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(formData),
             });
-
-            // setStatus('✅ Message sent successfully!');
-            setFormData({ name: '', email: '', mobile: '', message: '' });
-            // Redirect to the Thank You page
+        
+            if (res.ok) {
             router.push('/thank-you');
-            // setTimeout(() => setStatus(''), 5000);
-
-        } catch (error) {
-            console.error('Fetch error:', error);
-            setStatus('❌ An error occurred. Please try again.');
+            setFormData({
+                name: "",
+                email: "",
+                mobile: "",
+                message: "",
+            });
+        } else {
+            setStatus("Failed to send message.");
         }
+        } catch (error) {
+        console.error(`❌ Error submitting. Please try again. ${error}`);
+        setStatus("An error occurred. Please try again later.");
+        }
+    };
+
+    const openWhatsApp = () => {
+        const phoneNumber = "919997365898";
+        const message = `Hi, I'm interested in booking a Himachal tour package. Please send me more information.`;
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
     };
 
     return (
@@ -120,7 +134,8 @@ const ContactUs: React.FC = () => {
                                 name="name" 
                                 value={formData.name}
                                 onChange={handleChange} 
-                                id="namec" 
+                                id="namec"
+                                maxLength={30}
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
                                 placeholder=" "
                             />
@@ -144,7 +159,8 @@ const ContactUs: React.FC = () => {
                                 name="email" 
                                 value={formData.email}
                                 onChange={handleChange} 
-                                id="emailc" 
+                                id="emailc"
+                                maxLength={40}
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
                                 placeholder=" "
                             />
@@ -167,8 +183,14 @@ const ContactUs: React.FC = () => {
                                 type="tel" 
                                 name="mobile"
                                 value={formData.mobile}
-                                onChange={handleChange}
-                                id="phonec" 
+                                id="phonec"
+                                onChange={(e) => {
+                                    const value = e.target.value.replace(/\D/g, ""); // Allow digits only
+                                    if (value.length <= 10) {
+                                        handleChange(e);
+                                    }
+                                }}
+                                maxLength={10} 
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
                                 placeholder=" " 
                             />
@@ -192,7 +214,8 @@ const ContactUs: React.FC = () => {
                                 onChange={handleChange}
                                 id="messagec" 
                                 className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                                placeholder=" " 
+                                placeholder=" "
+                                maxLength={150}
                                 rows={2}
                             >
                             </textarea>
@@ -202,18 +225,60 @@ const ContactUs: React.FC = () => {
                             </label>
                         </div>
                     </div>
-                    
+                    {/* Clear Button */}
+                    <button 
+                        type="button" 
+                        onClick={handleFormReset} 
+                        className="
+                            w-full py-3 
+                            bg-gradient-to-r from-red-500 to-rose-600
+                            text-white font-semibold 
+                            rounded-xl shadow-md 
+                            hover:from-rose-600 hover:to-red-500 
+                            hover:scale-105 
+                            active:scale-95
+                            transition-all duration-300
+                        "
+                    >
+                        Clear All
+                    </button>
                     {/* Submit Button */}
                     <div className="text-center">
                         <motion.button
                             type="submit"
-                            className="inline-flex justify-center items-center py-2 px-4 rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-all"
+                            className="
+                                w-full inline-flex items-center justify-center
+                                py-3 px-6
+                                mt-3 
+                                rounded-xl shadow-lg
+                                text-white font-semibold
+                                bg-gradient-to-r from-green-500 to-emerald-600
+                                hover:from-emerald-600 hover:to-green-500
+                                hover:shadow-xl
+                                hover:scale-105 
+                                active:scale-95
+                                transition-all duration-300
+                            "
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            Submit &nbsp; <FaPaperPlane size={16} />
+                            Submit &nbsp; <FaPaperPlane size={18} />
                         </motion.button>
                     </div>
+                    <div className="flex flex-col items-center gap-2 mt-2">
+                        <p className="text-xl text-center text-gray-500">
+                            Need help? Call us at <a href="tel:+919997365898" className="text-blue-600 hover:underline">+91-9997365898</a>
+                        </p>
+                        
+                        <button 
+                            type="button" 
+                            onClick={openWhatsApp} 
+                            className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md text-xl transition duration-300"
+                        >
+                            <FaWhatsapp className="text-lg" /> Chat on WhatsApp
+                        </button>
+                    </div>
+
                 </form>
             </motion.div>
         </div>

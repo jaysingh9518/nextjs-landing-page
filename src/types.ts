@@ -1,4 +1,6 @@
-export interface IMenuItem {
+import { JSX } from 'react';  // Add this import at the top
+
+export interface IMenuItem { 
     text: string;
     url: string;
 }

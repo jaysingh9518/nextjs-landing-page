@@ -89,100 +89,86 @@ const Header: React.FC = () => {
                         <li>
                             {/* Enquiry Button */}
                             <EnquiryButton onClick={() => setIsPopupVisible(true)} text={t('enquire_now')} />
-                        </li>
                         {/* WhatsApp Button */}
+                        </li>
                         <li>
                             <a
                                 href="https://wa.me/919997365898"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-foreground hover:text-foreground-accent transition-colors flex items-center gap-2"
+                                className="
+                                    flex items-center gap-3
+                                    text-green-500 hover:text-green-600
+                                    transition-all duration-300
+                                "
                             >
                                 <div
-                                style={{
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    padding: "5px",
-                                    borderRadius: "8px",
-                                    transition: "0.3s ease-in-out",
-                                    background: isHoveredWhatsApp ? "rgba(0, 0, 0, 0.1)" : "transparent",
-                                    boxShadow: isHoveredWhatsApp ? "4px 4px 10px rgba(0, 0, 0, 0.2)" : "none",
-                                }}
-                                onMouseEnter={() => setIsHoveredWhatsApp(true)}
-                                onMouseLeave={() => setIsHoveredWhatsApp(false)}
+                                    className="
+                                        flex items-center justify-center
+                                        w-10 h-10
+                                        rounded-full bg-green-100
+                                        hover:bg-green-200 
+                                        shadow-md hover:shadow-lg
+                                        transition-all duration-300
+                                    "
                                 >
-                                <FaWhatsapp
-                                    size={30}
-                                    style={{
-                                    color: "#25D366",
-                                    }}
-                                />
+                                    <FaWhatsapp size={24} />
                                 </div>
-                                {/* {t('whatsapp')} */}
+                                WhatsApp
                             </a>
                         </li>
+
                         {/* Email Button */}
                         <li>
                             <a
                                 href="mailto:info@makemytravls.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-foreground hover:text-foreground-accent transition-colors flex items-center gap-2"
+                                className="
+                                    flex items-center gap-3
+                                    text-red-500 hover:text-red-600
+                                    transition-all duration-300
+                                "
                             >
                                 <div
-                                style={{
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    padding: "5px",
-                                    borderRadius: "8px",
-                                    transition: "0.3s ease-in-out",
-                                    background: isHoveredEmail ? "rgba(0, 0, 0, 0.1)" : "transparent",
-                                    boxShadow: isHoveredEmail ? "4px 4px 10px rgba(0, 0, 0, 0.2)" : "none",
-                                }}
-                                onMouseEnter={() => setIsHoveredEmail(true)}
-                                onMouseLeave={() => setIsHoveredEmail(false)}
+                                    className="
+                                        flex items-center justify-center
+                                        w-10 h-10
+                                        rounded-full bg-red-100
+                                        hover:bg-red-200
+                                        shadow-md hover:shadow-lg
+                                        transition-all duration-300
+                                    "
                                 >
-                                <FaEnvelope
-                                    size={30}
-                                    style={{
-                                    color: "#EA4335",
-                                    }}
-                                />
+                                    <FaEnvelope size={24} />
                                 </div>
-                                {/* {t('email')} */}
+                                Email
                             </a>
                         </li>
-                        {/* Call Now */}
+
+                        {/* Call Now Button */}
                         <li>
                             <a
                                 href="tel:+919997365898"
-                                className="text-foreground hover:text-foreground-accent transition-colors flex items-center gap-2"
+                                className="
+                                    flex items-center gap-3
+                                    text-blue-500 hover:text-blue-600
+                                    transition-all duration-300
+                                "
                             >
                                 <div
-                                style={{
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    padding: "5px",
-                                    borderRadius: "8px",
-                                    transition: "0.3s ease-in-out",
-                                    background: isHoveredCall ? "rgba(0, 0, 0, 0.1)" : "transparent",
-                                    boxShadow: isHoveredCall ? "4px 4px 10px rgba(0, 0, 0, 0.2)" : "none",
-                                }}
-                                onMouseEnter={() => setIsHoveredCall(true)}
-                                onMouseLeave={() => setIsHoveredCall(false)}
+                                    className="
+                                        flex items-center justify-center
+                                        w-10 h-10
+                                        rounded-full bg-blue-100
+                                        hover:bg-blue-200
+                                        shadow-md hover:shadow-lg
+                                        transition-all duration-300
+                                    "
                                 >
-                                <FaPhone
-                                    size={30}
-                                    style={{
-                                    color: "#304fff",
-                                    transform: "scaleX(-1)",
-                                    }}
-                                />
+                                    <FaPhone size={24} className="transform scale-x-[-1]" />
                                 </div>
-                                {/* {t('call_now')} */}
+                                Call Now
                             </a>
                         </li>
                         {/* Language Selector */}

@@ -5,15 +5,6 @@ import React, { useState } from "react";
 import { HiOutlineX } from "react-icons/hi";
 import { FaPaperPlane, FaUser, FaEnvelope, FaPhoneAlt, FaSuitcaseRolling, FaWhatsapp } from "react-icons/fa";
 
-const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScuU1bHEe_5F12AyoV_wujkYwU3IwOMgbL7nV7fxBERKS7rQA/formResponse";
-const ENTRY_IDS = {
-    name: "entry.841693140",
-    email: "entry.1032399951",
-    phone: "entry.1253921388",
-    package: "entry.206850376",
-    // Non-essential fields removed
-};
-
 const packageOptions = [
     "Manali - 2N3D",
     "Shimla - 2N3D",
@@ -27,8 +18,8 @@ const packageOptions = [
 interface FormData {
     name: string;
     email: string;
-    phone: string;
-    package: string;
+    mobile: string;
+    travelPackage: string;
 }
 
 interface LeadFormProps {
@@ -41,47 +32,79 @@ const LeadForm: React.FC<LeadFormProps> = ({ isVisible, onClose }) => {
     const [formData, setFormData] = useState<FormData>({
         name: "",
         email: "",
-        phone: "",
-        package: "",
+        mobile: "",
+        travelPackage: "",
     });
     const [status, setStatus] = useState<string>("");
+
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleFormReset = () => {
+        setFormData({
+            name: "",
+            email: "",
+            mobile: "",
+            travelPackage: "",
+        });
+        setStatus("");
+    }
+
+    const isValidName = (name: string) => /^[a-zA-Z\s]+$/.test(name) && name.trim().length >= 3;
+    const isValidMobile = (mobile: string) => /^[6-9]\d{9}$/.test(mobile);
+    const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isValidTravelPackage = (packaged: string) => /^[^\s@]+$/.test(packaged);
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
-        // Simple validation
-        if (!formData.name || !formData.phone || !formData.package) {
-            setStatus('❌ Please fill all required fields');
-            return;
-        }
-        
-        // Phone validation
-        if (!/^[6-9]\d{9}$/.test(formData.phone)) {
-            setStatus('❌ Please enter a valid 10-digit mobile number');
+        if (!isValidName(formData.name)) {
+            setStatus('❌ Please enter a valid name with at least 3 characters.');
             return;
         }
 
-        const formDataToSubmit = new URLSearchParams();
-        Object.entries(ENTRY_IDS).forEach(([key, entryId]) => {
-            formDataToSubmit.append(entryId, formData[key as keyof FormData]);
-        });
+        if (!isValidEmail(formData.email)) {
+            setStatus('❌ Please enter a valid email address.');
+            return;
+        }
+
+        if (!isValidMobile(formData.mobile)) {
+            setStatus('❌ Please enter a valid 10-digit mobile number.');
+            return;
+        }
+
+        if (!isValidTravelPackage(formData.travelPackage)) {
+            setStatus('❌ Please select a valid package.');
+            return;
+        }
+
+        setStatus("Sending...");
 
         try {
-            await fetch(GOOGLE_FORM_URL, {
-                method: "POST",
-                body: formDataToSubmit.toString(),
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                mode: "no-cors",
+            const res = await fetch("/api/sendMail", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(formData),
             });
+        
+            if (res.ok) {
             router.push('/thank-you');
             onClose();
+            setFormData({
+                name: "",
+                email: "",
+                mobile: "",
+                travelPackage: "",
+            });
+        } else {
+            setStatus("Failed to send message.");
+        }
         } catch (error) {
-            setStatus(`❌ Error submitting. Please try again. ${error}`);
+        console.error(`❌ Error submitting. Please try again. ${error}`);
+        setStatus("An error occurred. Please try again later.");
         }
     };
 
@@ -114,6 +137,10 @@ const LeadForm: React.FC<LeadFormProps> = ({ isVisible, onClose }) => {
                 {status && <p className="text-center text-red-500 text-sm mb-4">{status}</p>}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
+                    
+                    {formData.name && !isValidName(formData.name) && (
+                        <p className="text-red-500 text-sm mb-1">Please enter a valid name with at least 3 characters.</p>
+                    )}
                     {/* Name */}
                     <div className="flex items-center border-b-2 border-gray-300 py-2">
                         <FaUser className="text-gray-500 mr-3" />
@@ -121,27 +148,17 @@ const LeadForm: React.FC<LeadFormProps> = ({ isVisible, onClose }) => {
                             type="text" 
                             name="name" 
                             value={formData.name}
-                            onChange={handleChange} 
+                            onChange={handleChange}
+                            maxLength={30} 
                             className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" 
                             placeholder="Your Name *" 
                             required
                         />
                     </div>
                     
-                    {/* Phone */}
-                    <div className="flex items-center border-b-2 border-gray-300 py-2">
-                        <FaPhoneAlt className="text-gray-500 mr-3" />
-                        <input 
-                            type="tel" 
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" 
-                            placeholder="Phone Number *" 
-                            required
-                        />
-                    </div>
-                    
+                    {formData.email && !isValidEmail(formData.email) && (
+                        <p className="text-red-500 text-sm mb-1">Enter a valid email address</p>
+                    )}
                     {/* Email */}
                     <div className="flex items-center border-b-2 border-gray-300 py-2">
                         <FaEnvelope className="text-gray-500 mr-3" />
@@ -150,17 +167,44 @@ const LeadForm: React.FC<LeadFormProps> = ({ isVisible, onClose }) => {
                             name="email" 
                             value={formData.email}
                             onChange={handleChange} 
+                            maxLength={40}
                             className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" 
                             placeholder="Email Address" 
                         />
                     </div>
                     
+                    {formData.mobile && !isValidMobile(formData.mobile) && (
+                        <p className="text-red-500 text-sm mb-1">Enter a valid 10-digit mobile number</p>
+                    )}
+                    {/* Mobile */}
+                    <div className="flex items-center border-b-2 border-gray-300 py-2">
+                        <FaPhoneAlt className="text-gray-500 mr-3" />
+                        <input 
+                            type="tel" 
+                            name="mobile"
+                            value={formData.mobile}
+                            onChange={(e) => {
+                                const value = e.target.value.replace(/\D/g, ""); // Allow digits only
+                                if (value.length <= 10) {
+                                    handleChange(e);
+                                }
+                            }}
+                            maxLength={10}  // Optional for additional safety
+                            className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" 
+                            placeholder="Phone Number *" 
+                            required
+                        />
+                    </div>
+
+                    {formData.travelPackage && !isValidTravelPackage(formData.travelPackage) && (
+                        <p className="text-red-500 text-sm mb-1">Select a valid package</p>
+                    )}
                     {/* Package */}
                     <div className="flex items-center border-b-2 border-gray-300 py-2">
                         <FaSuitcaseRolling className="text-gray-500 mr-3" />
                         <select 
-                            name="package" 
-                            value={formData.package}
+                            name="travelPackage" 
+                            value={formData.travelPackage}
                             onChange={handleChange}
                             className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" 
                             required
@@ -171,20 +215,47 @@ const LeadForm: React.FC<LeadFormProps> = ({ isVisible, onClose }) => {
                             ))}
                         </select>
                     </div>
-                    
-                    <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition duration-300">
+                    <button 
+                        type="button" 
+                        onClick={handleFormReset} 
+                        className="
+                            w-full py-3 
+                            bg-gradient-to-r from-red-500 to-rose-600
+                            text-white font-semibold 
+                            rounded-xl shadow-md 
+                            hover:from-rose-600 hover:to-red-500 
+                            hover:scale-105 
+                            active:scale-95
+                            transition-all duration-300
+                        "
+                    >
+                        Clear All
+                    </button>
+                    <button type="submit" className="
+                                w-full inline-flex items-center justify-center
+                                py-3 px-6
+                                mt-3 
+                                rounded-xl shadow-lg
+                                text-white font-semibold
+                                bg-gradient-to-r from-green-500 to-emerald-600
+                                hover:from-emerald-600 hover:to-green-500
+                                hover:shadow-xl
+                                hover:scale-105 
+                                active:scale-95
+                                transition-all duration-300
+                            ">
                         Get Free Quote <FaPaperPlane />
                     </button>
                     
                     <div className="flex flex-col items-center gap-2">
-                        <p className="text-xs text-center text-gray-500">
+                        <p className="text-lg text-center text-gray-500">
                             Need help? Call us at <a href="tel:+919997365898" className="text-blue-600 hover:underline">+91-9997365898</a>
                         </p>
                         
                         <button 
                             type="button" 
                             onClick={openWhatsApp} 
-                            className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md text-sm transition duration-300"
+                            className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md text-lg transition duration-300"
                         >
                             <FaWhatsapp className="text-lg" /> Chat on WhatsApp
                         </button>
