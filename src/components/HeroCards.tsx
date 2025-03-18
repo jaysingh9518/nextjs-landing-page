@@ -24,7 +24,7 @@ const HeroCards = () => {
   const isValidName = (name: string) => /^[a-zA-Z\s]+$/.test(name) && name.trim().length >= 3;
   const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isValidMobile = (mobile: string) => /^[6-9]\d{9}$/.test(mobile);
-  const isValidTravelDate = (date: string) => /^\d{2}-\d{2}-\d{4}$/.test(date);
+  const isValidTravelDate = (date: string) => /^\d{4}-\d{2}-\d{2}$/.test(date);
   const isValidGuests = (guests: string) => /^[1-9]\d*$/.test(guests);
 
   const handleFormReset = () => {

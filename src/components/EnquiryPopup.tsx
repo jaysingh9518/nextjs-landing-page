@@ -56,8 +56,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ isVisible, onClose }) => {
     const isValidName = (name: string) => /^[a-zA-Z\s]+$/.test(name) && name.trim().length >= 3;
     const isValidMobile = (mobile: string) => /^[6-9]\d{9}$/.test(mobile);
     const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    const isValidTravelPackage = (packaged: string) => /^[^\s@]+$/.test(packaged);
-
+    
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
@@ -73,11 +72,6 @@ const LeadForm: React.FC<LeadFormProps> = ({ isVisible, onClose }) => {
 
         if (!isValidMobile(formData.mobile)) {
             setStatus('❌ Please enter a valid 10-digit mobile number.');
-            return;
-        }
-
-        if (!isValidTravelPackage(formData.travelPackage)) {
-            setStatus('❌ Please select a valid package.');
             return;
         }
 
@@ -196,9 +190,6 @@ const LeadForm: React.FC<LeadFormProps> = ({ isVisible, onClose }) => {
                         />
                     </div>
 
-                    {formData.travelPackage && !isValidTravelPackage(formData.travelPackage) && (
-                        <p className="text-red-500 text-sm mb-1">Select a valid package</p>
-                    )}
                     {/* Package */}
                     <div className="flex items-center border-b-2 border-gray-300 py-2">
                         <FaSuitcaseRolling className="text-gray-500 mr-3" />
