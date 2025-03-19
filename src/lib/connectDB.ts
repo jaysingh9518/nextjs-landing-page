@@ -1,15 +1,21 @@
-import mongoose from "mongoose";
-
-const { MONGODB_URI } = process.env;
+import mongoose from 'mongoose';
 
 export const connectDB = async () => {
-  try {
-    const { connection } = await mongoose.connect(MONGODB_URI as string);
-    if (connection.readyState === 1) {
-      return Promise.resolve(true);
+    const MONGODB_URI = process.env.MONGODB_URI; // Access here
+
+    if (!MONGODB_URI) {
+        console.error('MongoDB URI is missing from .env.local');
+        throw new Error('MONGODB_URI is not defined');
     }
-  } catch (error) {
-    console.error(error);
-    return Promise.reject(error);
-  }
+
+    try {
+        const { connection } = await mongoose.connect(MONGODB_URI);
+        if (connection.readyState === 1) {
+            console.log('✅ MongoDB connected successfully');
+            return Promise.resolve(true);
+        }
+    } catch (error) {
+        console.error('❌ MongoDB connection error:', error);
+        return Promise.reject(error);
+    }
 };

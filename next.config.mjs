@@ -3,6 +3,9 @@ const nextConfig = {
     eslint: {
         ignoreDuringBuilds: true, // Skips ESLint checks only in production builds (use carefully)
     },
+    env: {
+        MONGODB_URI: process.env.MONGODB_URI,
+    },
     images: {
         remotePatterns: [
             {
