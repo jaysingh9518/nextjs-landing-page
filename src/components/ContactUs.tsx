@@ -212,6 +212,8 @@ const ContactUs: React.FC = () => {
                 rows={3}
                 className={`pl-9 w-full py-2 px-3 rounded-lg border text-sm ${formData.message && formData.message.length > 150 ? 'border-red-500' : 'border-gray-300'} focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors resize-none`}
                 placeholder="Type your question or message here..."
+                spellCheck="false"
+                data-ms-editor="true"
             ></textarea>
         </div>
         <div className="flex justify-between mt-1">

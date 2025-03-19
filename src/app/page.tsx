@@ -11,6 +11,7 @@ import Container from "@/components/Container";
 import Section from "@/components/Section";
 import Stats from "@/components/Stats";
 import ContactUs from "@/components/ContactUs";
+import FooterCta from "@/components/FooterCta";
 import EnquiryPopup from "@/components/EnquiryPopup";
 
 const HomePage: React.FC = () => {
@@ -77,6 +78,7 @@ const HomePage: React.FC = () => {
         >
           <ContactUs />
         </Section>
+        <FooterCta />
       </Container>
       <EnquiryPopup isVisible={isPopupVisible} onClose={handleClosePopup} />
     </>
