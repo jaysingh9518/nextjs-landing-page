@@ -62,7 +62,7 @@ const Header: React.FC = () => {
 
     return (
         <>
-        <header className={clsx("fixed top-0 left-0 right-0 z-50 mx-auto w-full transition-all duration-300", { "bg-white shadow-md backdrop-blur-md": isScrolled, "bg-[rgba(255,255,255,0.1)] backdrop-blur-md": !isScrolled})}>
+        <header className={clsx("fixed top-0 left-0 right-0 z-50 mx-auto w-full transition-all duration-300", { "bg-white shadow-md backdrop-blur-md": isScrolled, "bg-[rgba(255,255,255,0.71)] backdrop-blur-md": !isScrolled})}>
             <Container className="!px-0">
                 <nav className={clsx("mx-auto flex justify-between items-center py-2 px-5 md:py-5", { "md:py-2": isScrolled })}>
                     {/* Logo */}
@@ -80,7 +80,7 @@ const Header: React.FC = () => {
                     <ul className="hidden lg:flex items-center space-x-6">
                         {menuItems.map(item => (
                             <li key={item.text} className="hover:bg-secondary transition-colors rounded-md px-2">
-                                <Link href={item.url} className="block text-foreground hover:text-white py-2">
+                                <Link href={item.url} className="block text-foreground font-semibold hover:text-white py-2">
                                     {t(item.text)}
                                 </Link>
                             </li>
@@ -98,7 +98,7 @@ const Header: React.FC = () => {
                                 rel="noopener noreferrer"
                                 className="
                                     flex items-center gap-3
-                                    text-green-500 hover:text-green-600
+                                    text-black font-semibold hover:text-green-600
                                     transition-all duration-300
                                 "
                             >
@@ -106,6 +106,7 @@ const Header: React.FC = () => {
                                     className="
                                         flex items-center justify-center
                                         w-10 h-10
+                                        text-green-500
                                         rounded-full bg-green-100
                                         hover:bg-green-200 
                                         shadow-md hover:shadow-lg
@@ -126,7 +127,7 @@ const Header: React.FC = () => {
                                 rel="noopener noreferrer"
                                 className="
                                     flex items-center gap-3
-                                    text-red-500 hover:text-red-600
+                                    text-black font-semibold hover:text-red-600
                                     transition-all duration-300
                                 "
                             >
@@ -134,6 +135,7 @@ const Header: React.FC = () => {
                                     className="
                                         flex items-center justify-center
                                         w-10 h-10
+                                        text-red-500
                                         rounded-full bg-red-100
                                         hover:bg-red-200
                                         shadow-md hover:shadow-lg
@@ -152,7 +154,7 @@ const Header: React.FC = () => {
                                 href="tel:+919997365898"
                                 className="
                                     flex items-center gap-3
-                                    text-blue-500 hover:text-blue-600
+                                    text-black font-semibold hover:text-blue-600
                                     transition-all duration-300
                                 "
                             >
@@ -160,6 +162,7 @@ const Header: React.FC = () => {
                                     className="
                                         flex items-center justify-center
                                         w-10 h-10
+                                        text-blue-500
                                         rounded-full bg-blue-100
                                         hover:bg-blue-200
                                         shadow-md hover:shadow-lg
@@ -186,6 +189,39 @@ const Header: React.FC = () => {
 
                     {/* Mobile Menu Button */}
                     <div className="lg:hidden flex items-center">
+                        <div>
+                            <Link 
+                                href="https://wa.me/919997365898"
+                                onClick={toggleMenu}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-foreground hover:text-foreground-accent transition-colors flex items-center gap-2"
+                            >
+                                <div
+                                style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    marginRight: "5px",
+                                    padding: "5px",
+                                    borderRadius: "20px",
+                                    transition: "0.3s ease-in-out",
+                                    background: isHoveredWhatsApp ? "rgba(0, 0, 0, 0.1)" : "transparent",
+                                    boxShadow: isHoveredWhatsApp ? "4px 4px 10px rgba(0, 0, 0, 0.2)" : "none",
+                                }}
+                                onMouseEnter={() => setIsHoveredWhatsApp(true)}
+                                onMouseLeave={() => setIsHoveredWhatsApp(false)}
+                                >
+                                <FaWhatsapp
+                                    size={30}
+                                    style={{
+                                    color: "#25D366",
+                                    }}
+                                />
+                                </div>
+                                {/* {t('whatsapp')} */}
+                            </Link>
+                        </div>
                         <button
                             onClick={toggleMenu}
                             type="button"

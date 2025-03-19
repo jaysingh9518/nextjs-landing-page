@@ -116,170 +116,159 @@ const ContactUs: React.FC = () => {
                 // viewport={{ once: true }}
             >
                 
-                <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg">
-                    
-                    {status && (
-                        <p className={`text-center mb-2 font-semibold ${status.startsWith('❌') ? 'text-red-500' : 'text-green-500'}`}>{status}</p>
-                    )}
+                <form onSubmit={handleSubmit} className="bg-white p-4 sm:p-8 rounded-xl shadow-lg w-full max-w-sm mx-auto">
+    {/* Form Header */}
+    <div className="mb-5 text-center">
+        <h2 className="text-xl font-bold text-gray-800">Get In Touch</h2>
+        <p className="text-sm text-gray-600">We&apos;d love to hear from you</p>
+    </div>
+    
+    {/* Status Message */}
+    {status && (
+        <div className={`mb-4 p-2 rounded-lg text-center ${status.startsWith('❌') ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
+            <p className="text-sm font-medium">{status}</p>
+        </div>
+    )}
 
-                    {formData.name && !isValidName(formData.name) && (
-                        <p className="text-red-500 text-sm mb-1">Please enter a valid name with at least 3 characters.</p>
-                    )}
-                    {/* Full Name */}
-                    <div className="relative z-0 w-full mb-6">
-                        <div className="relative">
-                            <RegUser className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
-                            <input 
-                                type="text" 
-                                name="name" 
-                                value={formData.name}
-                                onChange={handleChange} 
-                                id="namec"
-                                maxLength={30}
-                                className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                                placeholder=" "
-                            />
-                            <label htmlFor="namec" 
-                                className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                Full Name
-                            </label>
-                        </div>
-                    </div>
+    {/* Full Name Field */}
+    <div className="mb-4">
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+        <div className="relative">
+            <RegUser className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <input 
+                type="text" 
+                name="name" 
+                id="name"
+                value={formData.name}
+                onChange={handleChange} 
+                maxLength={30}
+                className={`pl-9 w-full py-2 px-3 rounded-lg border text-sm ${!isValidName(formData.name) && formData.name ? 'border-red-500' : 'border-gray-300'} focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors`}
+                placeholder="Enter your full name" 
+            />
+        </div>
+        {formData.name && !isValidName(formData.name) && (
+            <p className="text-red-500 text-xs mt-1">Please enter a valid name with at least 3 characters.</p>
+        )}
+    </div>
 
-                    {formData.email && !isValidEmail(formData.email) && (
-                        <p className="text-red-500 text-sm mb-1">Enter a valid email address</p>
-                    )}
-                    
-                    {/* Email */}
-                    <div className="relative z-0 w-full mb-6">
-                        <div className="relative">
-                            <RegEMail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
-                            <input 
-                                type="email" 
-                                name="email" 
-                                value={formData.email}
-                                onChange={handleChange} 
-                                id="emailc"
-                                maxLength={40}
-                                className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                                placeholder=" "
-                            />
-                            <label htmlFor="emailc" 
-                                className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                Email Address
-                            </label>
-                        </div>
-                    </div>
+    {/* Email Field */}
+    <div className="mb-4">
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+        <div className="relative">
+            <RegEMail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <input 
+                type="email" 
+                name="email" 
+                id="email"
+                value={formData.email}
+                onChange={handleChange} 
+                maxLength={40}
+                className={`pl-9 w-full py-2 px-3 rounded-lg border text-sm ${!isValidEmail(formData.email) && formData.email ? 'border-red-500' : 'border-gray-300'} focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors`}
+                placeholder="Enter your email address" 
+            />
+        </div>
+        {formData.email && !isValidEmail(formData.email) && (
+            <p className="text-red-500 text-xs mt-1">Enter a valid email address</p>
+        )}
+    </div>
 
-                    {formData.mobile && !isValidMobile(formData.mobile) && (
-                        <p className="text-red-500 text-sm mb-1">Enter a valid 10-digit mobile number</p>
-                    )}
-                    
-                    {/* Mobile */}
-                    <div className="relative z-0 w-full mb-6">
-                        <div className="relative">
-                            <RegPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
-                            <input 
-                                type="tel" 
-                                name="mobile"
-                                value={formData.mobile}
-                                id="phonec"
-                                onChange={(e) => {
-                                    const value = e.target.value.replace(/\D/g, ""); // Allow digits only
-                                    if (value.length <= 10) {
-                                        handleChange(e);
-                                    }
-                                }}
-                                maxLength={10} 
-                                className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                                placeholder=" " 
-                            />
-                            <label htmlFor="phonec" 
-                                className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                Mobile
-                            </label>
-                        </div>
-                    </div>
-                    
-                    {formData.message && formData.message.length > 150 && (
-                        <p className="text-red-500 text-sm mb-1">Message should not exceed 150 characters</p>
-                    )}
-                    {/* Message */}
-                    <div className="relative z-0 w-full mb-6">
-                        <div className="relative">
-                            <RegMessage className="absolute left-3 top-4 w-5 h-5 text-gray-500" />
-                            <textarea 
-                                name="message"
-                                value={formData.message}
-                                onChange={handleChange}
-                                id="messagec" 
-                                className="block pl-10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                                placeholder=" "
-                                maxLength={150}
-                                rows={2}
-                            >
-                            </textarea>
-                            <label htmlFor="messagec" 
-                                className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-10 origin-[0] peer-focus:left-10 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                Any Question or Message
-                            </label>
-                        </div>
-                    </div>
-                    {/* Clear Button */}
-                    <button 
-                        type="button" 
-                        onClick={handleFormReset} 
-                        className="
-                            w-full py-3 
-                            bg-gradient-to-r from-red-500 to-rose-600
-                            text-white font-semibold 
-                            rounded-xl shadow-md 
-                            hover:from-rose-600 hover:to-red-500 
-                            hover:scale-105 
-                            active:scale-95
-                            transition-all duration-300
-                        "
-                    >
-                        Clear All
-                    </button>
-                    {/* Submit Button */}
-                    <div className="text-center">
-                        <motion.button
-                            type="submit"
-                            className="
-                                w-full inline-flex items-center justify-center
-                                py-3 px-6
-                                mt-3 
-                                rounded-xl shadow-lg
-                                text-white font-semibold
-                                bg-gradient-to-r from-green-500 to-emerald-600
-                                hover:from-emerald-600 hover:to-green-500
-                                hover:shadow-xl
-                                hover:scale-105 
-                                active:scale-95
-                                transition-all duration-300
-                            "
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            Submit &nbsp; <FaPaperPlane size={18} />
-                        </motion.button>
-                    </div>
-                    <div className="flex flex-col items-center gap-2 mt-2">
-                        <p className="text-xl text-center text-gray-500">
-                            Need help? Call us at <a href="tel:+919997365898" className="text-blue-600 hover:underline">+91-9997365898</a>
-                        </p>
-                        
-                        <button 
-                            type="button" 
-                            onClick={openWhatsApp} 
-                            className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md text-xl transition duration-300"
-                        >
-                            <FaWhatsapp className="text-lg" /> Chat on WhatsApp
-                        </button>
-                    </div>
+    {/* Mobile Field */}
+    <div className="mb-4">
+        <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
+        <div className="relative">
+            <RegPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <input 
+                type="tel" 
+                name="mobile"
+                id="mobile"
+                value={formData.mobile}
+                onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, ""); // Allow digits only
+                    if (value.length <= 10) {
+                        handleChange(e);
+                    }
+                }}
+                maxLength={10} 
+                className={`pl-9 w-full py-2 px-3 rounded-lg border text-sm ${!isValidMobile(formData.mobile) && formData.mobile ? 'border-red-500' : 'border-gray-300'} focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors`}
+                placeholder="Enter your 10-digit mobile number" 
+            />
+        </div>
+        {formData.mobile && !isValidMobile(formData.mobile) && (
+            <p className="text-red-500 text-xs mt-1">Enter a valid 10-digit mobile number</p>
+        )}
+    </div>
 
-                </form>
+    {/* Message Field */}
+    <div className="mb-5">
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
+        <div className="relative">
+            <RegMessage className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+            <textarea 
+                name="message"
+                id="message"
+                value={formData.message}
+                onChange={handleChange}
+                maxLength={150}
+                rows={3}
+                className={`pl-9 w-full py-2 px-3 rounded-lg border text-sm ${formData.message && formData.message.length > 150 ? 'border-red-500' : 'border-gray-300'} focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors resize-none`}
+                placeholder="Type your question or message here..."
+            ></textarea>
+        </div>
+        <div className="flex justify-between mt-1">
+            <p className="text-red-500 text-xs">
+                {formData.message && formData.message.length > 150 && "Message should not exceed 150 characters"}
+            </p>
+            <p className="text-gray-500 text-xs">{formData.message ? formData.message.length : 0}/150</p>
+        </div>
+    </div>
+
+    {/* Action Buttons */}
+    <div className="grid grid-cols-2 gap-3 mb-4">
+        <button 
+            type="button" 
+            onClick={handleFormReset} 
+            className="py-2 px-3 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition-colors duration-300 flex items-center justify-center"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            Clear
+        </button>
+        
+        <motion.button
+            type="submit"
+            className="py-2 px-3 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+        >
+            Submit <FaPaperPlane className="ml-2" size={14} />
+        </motion.button>
+    </div>
+
+    {/* Contact Options */}
+    <div className="pt-3 border-t border-gray-200">
+        <p className="text-center text-xs text-gray-600 mb-3">Other ways to reach us:</p>
+        
+        <div className="flex flex-col gap-2">
+            <a 
+                href="tel:+919997365898" 
+                className="flex items-center justify-center gap-2 py-2 px-3 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition-colors text-sm"
+            >
+                <RegPhone className="w-4 h-4" /> +91-9997365898
+            </a>
+            
+            <button 
+                type="button" 
+                onClick={openWhatsApp} 
+                className="flex items-center justify-center gap-2 py-2 px-3 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm"
+            >
+                <FaWhatsapp size={14} /> WhatsApp Chat
+            </button>
+        </div>
+    </div>
+</form>
             </motion.div>
         </div>
     );
