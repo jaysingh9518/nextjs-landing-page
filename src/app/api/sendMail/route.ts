@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 
         const leadEmail = {
             from: `"Make My Travls" <${process.env.EMAIL_USER}>`,
-            to: process.env.EMAIL_USER, // Admin email from .env
+            to: process.env.RECEIVER_EMAIL, // Admin email from .env
             subject: "New Lead Received - Enquiry Form Submission",
             html: `<html>
                 <body>
