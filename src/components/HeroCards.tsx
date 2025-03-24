@@ -54,36 +54,32 @@ const HeroCards = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (typeof window !== "undefined" && window.trackLeadForm) {
-      window.trackLeadForm();
-    }
-
+  
     if (!isValidName(formData.name)) {
       setStatus('❌ Please enter a valid name with at least 3 characters.');
       return;
     }
-
+  
     if (!isValidEmail(formData.email)) {
       setStatus('❌ Please enter a valid email address.');
       return;
     }
-
+  
     if (!isValidMobile(formData.mobile)) {
       setStatus('❌ Please enter a valid 10-digit mobile number.');
       return;
     }
-
+  
     if (!isValidTravelDate(formData.travelDate)) {
       setStatus('❌ Please enter a valid future date (DD-MM-YYYY).');
       return;
     }
-
+  
     if (!isValidGuests(formData.guests)) {
       setStatus('❌ Please enter a valid number of guests (1-99).');
       return;
     }
-
+  
     setStatus("Sending...");
   
     try {
@@ -97,6 +93,15 @@ const HeroCards = () => {
         setStatus("Thank you! We'll contact you shortly with exclusive travel offers.");
         setShowLeadForm(false);
         router.push('/thank-you');
+        
+        // Fire Google Ads conversion tracking event
+        if (typeof window !== "undefined" && typeof window.trackLeadForm === "function") {
+          window.trackLeadForm();
+          console.log("Google Ads Conversion Event Triggered");
+        } else {
+          console.error("Google Ads tracking function not found");
+        }
+  
         setFormData({
           name: "",
           email: "",
@@ -111,7 +116,7 @@ const HeroCards = () => {
       console.error("Error sending message:", error);
       setStatus("An error occurred. Please try again later.");
     }
-  };
+  };  
   
   useEffect(() => {
     startAutoplay();
