@@ -7,6 +7,12 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cardsData } from "@/data/cards";
 
+declare global {
+  interface Window {
+    trackLeadForm?: () => void;
+  }
+}
+
 const HeroCards = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -48,6 +54,10 @@ const HeroCards = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (typeof window !== "undefined" && window.trackLeadForm) {
+      window.trackLeadForm();
+    }
 
     if (!isValidName(formData.name)) {
       setStatus('❌ Please enter a valid name with at least 3 characters.');
