@@ -12,7 +12,6 @@ import { siteDetails } from '@/data/siteDetails';
 // Gtag Config
 import Script from "next/script";
 const GTAG_ID = "AW-16911785832";
-const CONVERSION_LABEL = "qZ7ACkqOuagaEOi-lYA_";
 
 // import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
@@ -56,23 +55,20 @@ export default function RootLayout({
       <body
         className={`${manrope.className} ${sourceSans.className} antialiased`}
       >
+        {/* Google Analytics */}
         {siteDetails.googleAnalyticsId && <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />}
-        {/* Google Tag for Conversion Tracking */}
+        {/* Google Ads Global Site Tag */}
         <Script async src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`} />
         <Script
-          id="google-ads-tracking"
+          id="google-ads"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${GTAG_ID}');
-
-              window.trackLeadForm = function () {
-                gtag('event', 'conversion', {
-                  'send_to': '${GTAG_ID}/${CONVERSION_LABEL}'
-                });
-              };
+              
+              // Initialize Google Ads Conversion Tracking
+              gtag('config', '${GTAG_ID}'); 
             `,
           }}
         />

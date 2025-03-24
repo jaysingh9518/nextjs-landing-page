@@ -94,9 +94,13 @@ const HeroCards = () => {
         setShowLeadForm(false);
         router.push('/thank-you');
         
-        // Fire Google Ads conversion tracking event
-        if (typeof window !== "undefined" && typeof window.trackLeadForm === "function") {
-          window.trackLeadForm();
+        // 🔥 Trigger Google Ads Conversion Event
+        if (typeof window !== "undefined" && typeof window.gtag === "function") {
+          window.gtag('event', 'conversion', {
+            send_to: "AW-16911785832/qZ7ACKqOuagaEOi-IYA_", // Replace with your Conversion Label
+            value: 1.0,
+            currency: "INR",
+          });
           console.log("Google Ads Conversion Event Triggered");
         } else {
           console.error("Google Ads tracking function not found");
