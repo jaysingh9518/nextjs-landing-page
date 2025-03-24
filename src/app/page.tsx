@@ -32,7 +32,7 @@ const HomePage: React.FC = () => {
     if (!isPopupVisible && (!popupLastOpened || now - parseInt(popupLastOpened) > oneDay)) {
       const timer = setTimeout(() => {
         setIsPopupVisible(true);
-      }, 10000); // Show popup after 10 seconds
+      }, 30000); // Show popup after 10 seconds
 
       return () => clearTimeout(timer);
     }
